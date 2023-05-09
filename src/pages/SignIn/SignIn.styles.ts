@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Xbutton from '../../assets/botao-x.png'
+
 
 export const PageArea =styled.div`
   max-width:450px;
@@ -22,7 +24,12 @@ export const PageArea =styled.div`
   }
 
   form {
- 
+    
+    label{
+      display:block;
+      margin-bottom:20px;
+    }
+
     .area--title {
       color: #333;
       font-weight: 500;
@@ -35,7 +42,6 @@ export const PageArea =styled.div`
       input{
         width:100%;
         margin-top:5px;
-        margin-bottom:20px;
         padding:10px 5px;
         border: 1px solid #ccc;
         border-radius:5px;
@@ -122,3 +128,23 @@ export const PageArea =styled.div`
 
 `
 
+export const ErrorMessage = styled.div`
+  width:100%;
+  display:flex;
+  align-items:baseline;
+  padding:5px 10px;
+  color:red;
+  font-size:0.8rem;
+
+  &::before{
+    content:'';
+    background:url(${Xbutton})
+      no-repeat center center/cover;
+    display:block;
+    position:relative;
+    margin-right:5px;
+    width:15px;
+    height:15px;
+    top:3px;
+  }
+`
