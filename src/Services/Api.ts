@@ -53,6 +53,7 @@ const apiGet = async (endpoint: string, body: any = []) => {
     }
 
     return response.data;
+
   } catch (error) {
     console.error(error);
   }
@@ -67,6 +68,15 @@ const Api = {
       console.error(error);
     }
   },
+  getStates:async () => {
+    try{
+      const response = await apiGet('/states')
+      return response.states
+
+    }catch(error){
+      console.error(error)
+    }
+  }
 };
 
 const useApi = () => Api;
