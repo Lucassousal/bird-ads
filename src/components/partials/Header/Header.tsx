@@ -1,12 +1,16 @@
 import { HeaderArea, ActionButton, AddButton } from "./Header.styles"
 import { Link } from "react-router-dom"
 import logo from '../../../assets/bird-logo.png'
-import { isLogged } from "../../../helpers/AuthHandler"
+import { isLogged, doLogout } from "../../../helpers/AuthHandler"
 
 const Header = () => {
 
   const logged = isLogged();
-   
+  
+  const handleLogout = () => {
+    doLogout();
+    window.location.href='/';
+  }
 
   return (
     <HeaderArea>
@@ -27,9 +31,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to={'/logout'}>
-                    <ActionButton $primary>Sair</ActionButton>
-                  </Link>
+                  <ActionButton onClick={handleLogout} $primary>Sair</ActionButton>
                 </li>
                 <li>
                   <Link to={'/post-an-ad'}>

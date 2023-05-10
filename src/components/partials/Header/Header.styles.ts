@@ -75,6 +75,7 @@ export const ActionButton = styled.div<ActionButtonProps>`
   justify-content:center;
   align-items:center;
   color: ${props => props.$primary ? '#333' : '#fff'};
+  cursor:pointer;
 
   &:hover{
     border: 2px solid #018A80;
