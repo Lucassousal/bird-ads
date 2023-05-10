@@ -13,8 +13,9 @@ const http = axios.create({
 
 const apiPost = async (
   endpoint: string,
-  body: { email: string; password: string; token?: string }
+  body: {name?:string; email: string; password: string; state?:string; token?: string }
 ) => {
+  
   if (!body.token) {
     const token = Cookies.get("token");
     if (token) {
@@ -68,6 +69,14 @@ const Api = {
       console.error(error);
     }
   },
+  register: async (name:string, email:string, password:string, stateLoc:string) => {
+    try{
+      const response = await apiPost('/user/signup', {name, email, password, state:stateLoc})
+      return response
+    }catch(error){
+      console.error(error)
+    }
+  },
   getStates:async () => {
     try{
       const response = await apiGet('/states')
@@ -76,7 +85,8 @@ const Api = {
     }catch(error){
       console.error(error)
     }
-  }
+  },
+  
 };
 
 const useApi = () => Api;

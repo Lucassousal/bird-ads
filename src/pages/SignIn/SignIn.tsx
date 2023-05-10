@@ -26,6 +26,7 @@ export const SignIn = () => {
     console.log(data)
 
     setDisable(true)
+    setError('')
 
     const json = await api.login(data.email, data.password)
   
@@ -72,8 +73,7 @@ export const SignIn = () => {
             <div className="area--input">
               <input 
                 {...register('password', {
-                  required: 'A senha é obrigatória', 
-                  minLength:{value:5, message:"A senha deve ter no minimo 5 dígitos"}
+                  required: 'A senha é obrigatória',
                   })
                 } 
                 id="password" 

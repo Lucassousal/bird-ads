@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/bird-logo.png'
 import { useEffect, useState } from 'react';
 import { useApi } from '../../Services/Api';
+import { doLogin } from '../../helpers/AuthHandler';
 
 type FormData = {
   name:string;
@@ -30,7 +31,29 @@ export const Signup = () => {
 
   const {register, handleSubmit, formState:{errors} } = useForm<FormData>();
   
-  const onSubmit = handleSubmit( async (data) => {console.log(data)})
+  const onSubmit = handleSubmit( async (data) => {
+    
+    setDisable(true)
+    setError('')
+
+    if(data.password !== data.confirmPassword){
+      setError('As senhas são diferentes')
+      setDisable(false)
+      return
+    }
+
+    const json = await api.register(data.name, data.email, data.password, data.stateLoc);
+
+    if(json.error){
+      setError(json.error);
+    } else {
+      doLogin(json.token);
+      window.location.href='/'
+    }
+
+    setDisable(false)
+
+  })
 
   useEffect(() => {
     const getStates = async () => {
@@ -103,7 +126,7 @@ export const Signup = () => {
               <input 
                 {...register('password', {
                   required: 'A senha é obrigatória', 
-                  minLength:{value:5, message:"A senha deve ter no minimo 5 dígitos"}
+                  minLength:{value:6, message:"A senha deve ter no minimo 6 dígitos"}
                   })
                 } 
                 id="password" 
@@ -119,7 +142,7 @@ export const Signup = () => {
               <input 
                 {...register('confirmPassword', {
                   required: 'A confirmação da senha é obrigatória', 
-                  minLength:{value:5, message:"A senha deve ter no minimo 5 dígitos"}
+                  minLength:{value:6, message:"A senha deve ter no minimo 6 dígitos"}
                   })
                 } 
                 id="confirmPassword" 
@@ -130,7 +153,7 @@ export const Signup = () => {
             </div>
           </label>
           <div className="button--area">
-            <button type="submit" disabled={disable}>Entrar</button>
+            <button type="submit" disabled={disable}>Cadastrar</button>
           </div>
         </form>
 
