@@ -86,6 +86,14 @@ const Api = {
       console.error(error)
     }
   },
+  getCategories:async () => {
+    try{
+      const response = await apiGet('/categories')
+      return response.categories
+    }catch(error){
+      console.error(error)
+    }
+  }
   
 };
 

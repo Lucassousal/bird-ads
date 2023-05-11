@@ -12,6 +12,7 @@ export const HeaderArea = styled.div`
 
   .container {
     max-width:1024px;
+    height:100%;
     margin:auto;
     display:flex;
   }
