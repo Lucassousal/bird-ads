@@ -1,25 +1,34 @@
-import { CategoryContainer, PageArea, SearchArea } from "./Home.styled"
+import { CategoryContainer, ListContainer, PageArea, SearchArea } from "./Home.styled"
 import { PageContainer } from "../../components/MainComponents"
 import { useApi } from "../../Services/Api"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { AdItem } from "../../components/partials/AdItem/AdItem"
 
 type FormData = {
   q: string;
   state:string;
 }
 
-type StateListType = {
+type StateType = {
   _id:string;
   name:string;
 }
 
-type CategoryListType = {
+type CategoryType = {
   img:string;
   name:string;
   slug:string;
   _id:string;
+}
+
+export type AdType = {
+  id:string;
+  image:string;
+  price:number;
+  priceNegotiable:boolean;
+  title:string;
 }
 
 export const Home = () => {
@@ -27,8 +36,9 @@ export const Home = () => {
   const navigate = useNavigate()
   const {register, handleSubmit, formState:{errors} } = useForm<FormData>();
   
-  const [stateList, setStateList] = useState<StateListType[]>([])
-  const [categories, setCategories] = useState<CategoryListType[]>([])
+  const [stateList, setStateList] = useState<StateType[]>([])
+  const [categories, setCategories] = useState<CategoryType[]>([])
+  const [adsList, setAdsList] = useState<AdType[]>([])
   
   const onSubmit = handleSubmit( async (data) => {
     navigate(`/ads?q=${data.q}&state=${data.state}`)
@@ -51,6 +61,20 @@ export const Home = () => {
 
     getCategories()
   },[api])
+  
+  useEffect(() => {
+    const getRecentsAds = async () => {
+      const ads = await api.getAds({
+        sort:'desc',
+        limit:15,
+      });    
+      console.log("🚀 ~ file: Home.tsx:66 ~ getRecentsAds ~ ads:", ads)
+      
+      setAdsList(ads.ads);
+    }
+
+    getRecentsAds()
+  },[api])
 
   
 
@@ -61,9 +85,9 @@ export const Home = () => {
           <div className="searchBox">
             <p>{errors.q?.message ? errors.q?.message : errors.state?.message}</p>
             <form action="/ads" method="GET" onSubmit={onSubmit}>
-              <input {...register('q', {required: 'Digite o que você quer pesquisar'})} type="text" />
+              <input {...register('q', {required: 'Digite o que você quer pesquisar'})} type="text" placeholder="Buscar" />
               <select {...register('state', {required: 'Informe em qual estado quer pesquisar'})} >
-                <option></option>
+                <option disabled selected>Selecione</option>
                 {stateList.map((item)=>(
                   <option key={item._id}>{item.name}</option>
                 ))}
@@ -83,7 +107,15 @@ export const Home = () => {
       </SearchArea>
       <PageContainer>
         <PageArea>
-
+          <h2>Anúncios recentes</h2>
+          <ListContainer>
+            {
+              adsList.map((item)=> (
+                <AdItem key={item.id} data={item}/>
+              ))
+            }
+          </ListContainer>
+          <Link to={'/ads'}>Ver todos</Link>
         </PageArea>
       </PageContainer>
     </>

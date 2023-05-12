@@ -37,7 +37,7 @@ const apiPost = async (
   }
 };
 
-const apiGet = async (endpoint: string, body: any = []) => {
+const apiGet = async (endpoint: string, body: {sort?:string, limit?:number, token?:string} = {}) => {
   if (!body.token) {
     const token = Cookies.get("token");
     if (token) {
@@ -93,6 +93,10 @@ const Api = {
     }catch(error){
       console.error(error)
     }
+  },
+  getAds: async (body:{sort:string, limit:number}) => {
+    const response = await apiGet('/ad/list', body)
+    return response
   }
   
 };

@@ -29,11 +29,16 @@ export const SearchArea = styled.div`
             transition:all ease 0.4s;
             outline-color: #018a80;
          }
+
+         &::placeholder{
+            font-size:1.2rem;
+         }
       }
 
       input {
          flex:1;
          padding:11px 5px;
+         padding-left:20px;
       }
      
       button {
@@ -55,11 +60,6 @@ export const SearchArea = styled.div`
    }
 `
 
-export const PageArea = styled.div`
-
-`
-
-
 export const CategoryContainer = styled.div`
    display:flex;
    justify-content:space-around;
@@ -80,5 +80,37 @@ export const CategoryContainer = styled.div`
       }
    }
 
-
 `
+
+export const PageArea = styled.div`
+   
+   display:flex;
+   flex-direction:column;
+   background-color:#fff;
+   padding:0 20px;
+   
+   h2{
+      color:#333;
+      font-size:1.2rem;
+   }
+
+   a{
+      text-decoration:none;
+      color: #018A80;
+      font-size:0.8rem;
+      font-weight:500;
+      align-self:flex-end;
+      margin:10px;
+
+      &:hover{
+         text-decoration:underline;
+      }
+   }
+`
+
+
+export const ListContainer = styled.div`
+   display:flex;
+   flex-wrap:wrap;
+`
+
