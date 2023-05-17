@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AdItem } from "../../components/partials/AdItem/AdItem"
+import Header from "../../components/partials/Header/Header"
+import { AdsType } from "../../types/Ads"
+
 
 type FormData = {
   q: string;
@@ -23,13 +26,6 @@ type CategoryType = {
   _id:string;
 }
 
-export type AdType = {
-  id:string;
-  image:string;
-  price:number;
-  priceNegotiable:boolean;
-  title:string;
-}
 
 export const Home = () => {
   const api = useApi()
@@ -38,7 +34,7 @@ export const Home = () => {
   
   const [stateList, setStateList] = useState<StateType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
-  const [adsList, setAdsList] = useState<AdType[]>([])
+  const [adsList, setAdsList] = useState<AdsType[]>([])
   
   const onSubmit = handleSubmit( async (data) => {
     navigate(`/ads?q=${data.q}&state=${data.state}`)
@@ -68,7 +64,6 @@ export const Home = () => {
         sort:'desc',
         limit:15,
       });    
-      console.log("🚀 ~ file: Home.tsx:66 ~ getRecentsAds ~ ads:", ads)
       
       setAdsList(ads.ads);
     }
@@ -80,16 +75,17 @@ export const Home = () => {
 
   return (
     <>
+      <Header/>
       <SearchArea>
         <PageContainer>
           <div className="searchBox">
             <p>{errors.q?.message ? errors.q?.message : errors.state?.message}</p>
             <form action="/ads" method="GET" onSubmit={onSubmit}>
               <input {...register('q', {required: 'Digite o que você quer pesquisar'})} type="text" placeholder="Buscar" />
-              <select {...register('state', {required: 'Informe em qual estado quer pesquisar'})} >
-                <option disabled selected>Selecione</option>
+              <select {...register('state', {required: 'Informe em qual estado quer pesquisar'})} defaultValue={''}>
+                <option value=''>Selecione</option>
                 {stateList.map((item)=>(
-                  <option key={item._id}>{item.name}</option>
+                  <option key={item._id} value={item.name}>{item.name}</option>
                 ))}
               </select>
               <button type='submit'>Pesquisar</button>

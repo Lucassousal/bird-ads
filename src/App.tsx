@@ -1,19 +1,13 @@
 import './App.css'
-import { BrowserRouter} from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { Template } from './components/MainComponents'
-import Header from './components/partials/Header/Header'
-import { MainRoutes } from './routes'
-
+import { routes } from './routes'
 const App = () => {
 
   return (
-    <BrowserRouter>
       <Template>
-          <Header/>
-          <MainRoutes/>
+          <RouterProvider router={routes}/>
       </Template>
-    </BrowserRouter>
-
   )
 }
 

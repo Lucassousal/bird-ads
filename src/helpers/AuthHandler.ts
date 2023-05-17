@@ -8,7 +8,7 @@ export const isLogged = () => {
 
 export const doLogin = ( token: string, rememberPassword?: boolean ) => {
   if (rememberPassword) {
-    Cookies.set("token", token, { expires: 999 });
+    Cookies.set("token", token, { expires: 999, sameSite:"Strict" });
   } else {
     Cookies.set("token", token);
   }

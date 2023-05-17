@@ -51,6 +51,11 @@ const Header = () => {
                     <ActionButton>Cadastrar</ActionButton>
                   </Link>
                 </li>
+                <li>
+                  <Link to={'/post-an-ad'}>
+                    <AddButton>Postar um anúncio</AddButton>
+                  </Link>
+                </li>
               </>
             }
           </ul>

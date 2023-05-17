@@ -1,14 +1,15 @@
 import { Item } from "./AdItem.styles"
-import { AdType } from "../../../pages/Home/Home"
+import { AdsType } from "../../../types/Ads"
 import { Link } from "react-router-dom"
 
 type Props = {
-   data: AdType
+   data: AdsType
+   width?:string
 }
 
-export const AdItem = ({data}:Props) => {
+export const AdItem = ({data, width}:Props) => {
    return(
-      <Item>
+      <Item width={width}>
          <Link to={`/ad/${data.id}`}>
             <div className="image">
                <img src={data.image} alt={data.title} />

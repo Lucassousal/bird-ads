@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-export const Item = styled.div`
 
-   width:20%; 
+type Props = {
+   width:string | undefined;
+}
+
+export const Item = styled.div<Props>`
+
+   width: ${props => props.width ? props.width : '20%'}; 
 
    a{
       display:block;
