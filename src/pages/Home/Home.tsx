@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { AdItem } from "../../components/partials/AdItem/AdItem"
 import Header from "../../components/partials/Header/Header"
 import { AdsType } from "../../types/Ads"
-
+import { CategoryType } from "../../types/Category"
 
 type FormData = {
   q: string;
@@ -17,13 +17,6 @@ type FormData = {
 type StateType = {
   _id:string;
   name:string;
-}
-
-type CategoryType = {
-  img:string;
-  name:string;
-  slug:string;
-  _id:string;
 }
 
 

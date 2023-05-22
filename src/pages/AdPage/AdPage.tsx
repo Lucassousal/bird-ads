@@ -89,20 +89,24 @@ export const AdPage = () => {
                   </div>
                </PageArea>
                {
-                  ad.others &&
-
-                  <OtherAreas>
-                     <div className="other-title">
-                        <h3>Outras ofertas do vendedor</h3>
-                     </div>
-                     <div className="other-ads">
-                        {
-                           ad.others?.map((item, index) => (
-                              <AdItem width={'25%'} key={index} data={item}/>
-                           ))
-                        }
-                     </div>
-                  </OtherAreas>
+                  ad.others ?
+                     ad.others.length > 0 ?
+                        <OtherAreas>
+                           <div className="other-title">
+                              <h3>Outras ofertas do vendedor</h3>
+                           </div>
+                           <div className="other-ads">
+                              {
+                                 ad.others?.map((item, index) => (
+                                    <AdItem width={'25%'} key={index} data={item}/>
+                                 ))
+                              }
+                           </div>
+                        </OtherAreas>
+                     :
+                     <></>
+                  :
+                  <></>
                }
             </PageContainer>
          </BodyPage>

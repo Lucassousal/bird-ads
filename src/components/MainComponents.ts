@@ -40,3 +40,23 @@ export const GeralErrorMessage = styled.div`
     height:15px;
   }
 `
+export const ErrorMessage = styled.div`
+  width:100%;
+  display:flex;
+  align-items:baseline;
+  padding:5px 10px;
+  color:red;
+  font-size:0.8rem;
+
+  &::before{
+    content:'';
+    background:url(${Xbutton})
+      no-repeat center center/cover;
+    display:block;
+    position:relative;
+    margin-right:5px;
+    width:15px;
+    height:15px;
+    top:3px;
+  }
+`

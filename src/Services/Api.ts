@@ -4,7 +4,7 @@ import qs from "qs";
 import { Params } from "react-router-dom";
 
 const http = axios.create({
-  baseURL: "http://alunos.b7web.com.br:501",
+  baseURL: "http://localhost:5000", //http://localhost:5000  -- http://alunos.b7web.com.br:501
   timeout: 5000,
   headers: {
     Accept: "application/json",
@@ -61,6 +61,33 @@ const apiGet = async (endpoint: string, body: {sort?:string, limit?:number, toke
   }
 };
 
+const apiFile = async (endpoint:string, body:globalThis.FormData) => {
+
+  if (!body.get('token')) {
+    const token = Cookies.get("token");
+    if (token) {
+      body.append('token',token)
+    }
+  }
+
+  try {
+    const response = await http.post(endpoint, body, {
+      headers:{
+        'Content-Type':'multipart/form-data'
+      }
+    });
+
+    if (response.data.notallowed) {
+      window.location.href = "/signin";
+      return;
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export const Api = {
   login: async (email: string, password: string) => {
     try {
@@ -106,6 +133,10 @@ export const Api = {
     }catch(error){
       console.error(error)
     }
+  },
+  addAd: async (data) => {
+    const response = await apiFile('ad/add', data)
+    return response
   }
   
 };
