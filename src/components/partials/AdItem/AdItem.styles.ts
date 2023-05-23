@@ -10,7 +10,7 @@ export const Item = styled.div<Props>`
    width: ${props => props.width ? props.width : '20%'}; 
 
    a{
-      display:block;
+      display:inline-block;
       text-decoration:none;
       color:#333;
       padding:10px;

@@ -122,7 +122,7 @@ export const Api = {
       console.error(error)
     }
   },
-  getAds: async (body:{sort:string, limit:number}) => {
+  getAds: async (body:{sort:string, limit:number, q:string|null, cat:string|null, state:string|null}) => {
     const response = await apiGet('/ad/list', body)
     return response
   },

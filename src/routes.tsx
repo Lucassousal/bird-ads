@@ -7,6 +7,7 @@ import { AdPage } from './pages/AdPage/AdPage'
 import { Api } from "./Services/Api";
 import { RequireAuth } from "./helpers/RequireAuth";
 import { AddAd } from "./pages/AddAd/AddAd";
+import { Ads } from "./pages/Ads/Ads";
 
 export const routes = createBrowserRouter([
   {
@@ -45,7 +46,11 @@ export const routes = createBrowserRouter([
       <RequireAuth>
         <AddAd/>
       </RequireAuth>,
-  }
+  },
+  {
+    path:"/ads",
+    element:<Ads/>
+  },
 
 ])
 
