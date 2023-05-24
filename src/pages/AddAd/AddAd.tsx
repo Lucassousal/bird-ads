@@ -8,6 +8,7 @@ import { CategoryType } from "../../types/Category";
 import { createNumberMask } from "text-mask-addons";
 import MaskedInput from "react-text-mask";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/partials/Footer/Footer";
 
 
 type FormData = {
@@ -190,6 +191,7 @@ export const AddAd = () => {
 
             </PageArea>
          </PageContainer>
+         <Footer/>
       </>
    )
 }

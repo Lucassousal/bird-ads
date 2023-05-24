@@ -130,6 +130,11 @@ export const PageArea =styled.div`
       }
     }
 
+    .home-link{
+      margin-top:15px;
+      font-size:0.8rem;
+    }
+
 `
 
 export const ErrorMessage = styled.div`

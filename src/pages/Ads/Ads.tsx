@@ -8,6 +8,7 @@ import { PageContainer } from "../../components/MainComponents";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AdItem } from "../../components/partials/AdItem/AdItem";
 import { ClipLoader } from "react-spinners";
+import Footer from "../../components/partials/Footer/Footer";
 
  type StateType = {
    _id:string;
@@ -216,6 +217,7 @@ export const Ads = () => {
                </div>
             </PageArea>
          </PageContainer>
+         <Footer/>
       </>
 
    )

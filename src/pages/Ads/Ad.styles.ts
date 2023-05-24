@@ -91,6 +91,7 @@ export const PageArea = styled.div`
       padding:0 20px;
       border-left: 1px solid #ddd;
       background-color:#fff;
+      min-height:calc( 100vh - 69px - 80px);
       
       .listWarning, .loader{
          padding:30px;

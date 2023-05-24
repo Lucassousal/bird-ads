@@ -6,6 +6,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Ad } from "../../types/Ad";
 import Header from "../../components/partials/Header/Header";
 import { AdItem } from "../../components/partials/AdItem/AdItem";
+import Footer from "../../components/partials/Footer/Footer";
 
 export const AdPage = () => {
 
@@ -110,6 +111,7 @@ export const AdPage = () => {
                }
             </PageContainer>
          </BodyPage>
+         <Footer/>
       </>
 
    )

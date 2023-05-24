@@ -159,6 +159,7 @@ export const Signup = () => {
 
         <hr/>
         <p>Já tem uma conta? <Link to={'/signin'}>Entrar</Link>  </p>
+        <p className="home-link">Voltar para <Link to={'/'}>Home</Link> </p>
       </PageArea>
     </PageContainer>
   )

@@ -8,6 +8,7 @@ import { AdItem } from "../../components/partials/AdItem/AdItem"
 import Header from "../../components/partials/Header/Header"
 import { AdsType } from "../../types/Ads"
 import { CategoryType } from "../../types/Category"
+import Footer from "../../components/partials/Footer/Footer"
 
 type FormData = {
   q: string;
@@ -107,6 +108,7 @@ export const Home = () => {
           <Link to={'/ads'}>Ver todos</Link>
         </PageArea>
       </PageContainer>
+      <Footer/>
     </>
 
   )

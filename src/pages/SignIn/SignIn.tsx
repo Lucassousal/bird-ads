@@ -100,7 +100,8 @@ export const SignIn = () => {
         </form>
 
         <hr/>
-        <p>Não tem uma conta? <Link to={'/signup'}>Cadastre-se</Link>  </p>
+        <p>Não tem uma conta? <Link to={'/signup'}>Cadastre-se</Link> </p>
+        <p className="home-link">Voltar para <Link to={'/'}>Home</Link> </p>
       </PageArea>
     </PageContainer>
   )
