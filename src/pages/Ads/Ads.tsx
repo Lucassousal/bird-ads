@@ -26,10 +26,13 @@ export const Ads = () => {
    }
    const query = useQueryString();
 
+   const [adsTotal, setAdsTotal] = useState(0);
    const [stateList, setStateList] = useState<StateType[]>([])
    const [categories, setCategories] = useState<CategoryType[]>([])
    const [adsList, setAdsList] = useState<AdsType[]>([])
-   
+   const [pageCount, setPageCount] = useState(0)
+   const [currentPage, setCurrentPage] = useState(1)
+
    const [q, setQ] = useState(query.get('q') !== null ? query.get('q') : '')
    const [cat, setCat] = useState(query.get('cat') !== null ? query.get('cat') : '')
    const [state, setState] = useState(query.get('state') !== null ? query.get('state') : '')
@@ -37,21 +40,45 @@ export const Ads = () => {
    const [resultOpacity, setResultOpacity] = useState(0.3)
    const [loading, setLoading] = useState(true)
 
+
+   const pagination:number[] = []
+   for(let i = 1; i<=pageCount; i++){
+      pagination.push(i)
+   }
+
    const getAdsList = async () => {
       setLoading(true)
+
+      const offset = (currentPage -1 ) * 2
+
       const ads = await api.getAds({
          sort:'desc',
-         limit:9,
+         limit:2,
          q,
          cat,
          state,
+         offset,
       });    
       
       setAdsList(ads.ads);
+      setAdsTotal(ads.total)
       setResultOpacity(1)
       setLoading(false)
    }
 
+   const cleanFilter = () =>{
+      setQ('')
+      setCat('')
+      setState('')
+   }
+
+   useEffect(()=>{
+      if(adsList.length > 0){
+         setPageCount(Math.ceil(adsTotal / adsList.length))
+      }else{
+         setPageCount(0)
+      }
+   },[adsTotal])
 
    useEffect(()=> {
       const queryString:string[] = [];
@@ -75,6 +102,7 @@ export const Ads = () => {
 
       timer = setTimeout(getAdsList, 2000)
       setResultOpacity(0.3)
+      setCurrentPage(1)
 
    },[q, cat, state])
 
@@ -98,12 +126,18 @@ export const Ads = () => {
    },[api])
       
 
+   useEffect(()=>{
+      setResultOpacity(0.3)
+      getAdsList()
+   },[currentPage])
+
    return (
       <>
          <Header/>
          <PageContainer>
             <PageArea>
                <div className="left-side">
+                  <p className="filter-name">Filtre sua busca</p>
                   <form>
                      <input 
                         name='q'
@@ -112,7 +146,7 @@ export const Ads = () => {
                         value={q ?? ''}
                         onChange={e=>setQ(e.target.value)}
                      />
-                     <div className="filter-name">Estado:</div>
+                     <p className="filter-name">Estado:</p>
                      <select 
                         name='state' 
                         value={state ?? ''}
@@ -125,28 +159,37 @@ export const Ads = () => {
                            ))
                         }
                      </select>
-                     <div className="filter-name">Categorias:</div>
+                     <p className="filter-name">Categorias:</p>
                      <ul>
                         {
                            categories.map((item)=>(
                               <li 
                                  className="category-item" 
                                  key={item._id}
-                                 onClick={()=>setCat(item.slug)}
                               >
-                                 <div className={cat==item.slug ? "checkBox-item active" : "checkBox-item"}></div>
-                                 <span>{item.name}</span>
+                                 <input 
+                                    name="cat" 
+                                    type="radio" 
+                                    id={item._id} 
+                                    value={item.slug} 
+                                    checked={cat === item.slug}
+                                    onChange={(e)=> setCat(e.target.value)} 
+                                 />
+                                 <label htmlFor={item._id}>{item.name}</label>
                               </li>
                            ))
                         }
                      </ul>
                   </form>
+                  <div className="button-container">
+                     <button onClick={cleanFilter}>Limpar filtros</button>
+                  </div>
                </div>
                <div className="right-side">
                   <h3>Resultados da pesquisa</h3>
                   
                   {
-                     loading &&
+                     loading && adsList.length === 0 &&
                      <div className="loader">
                         <ClipLoader color="#48309C" size={45}/>
                      </div>
@@ -160,6 +203,13 @@ export const Ads = () => {
                      {
                         adsList.map((item) => (
                            <AdItem key={item.id} data={item} width="25%"/>
+                        ))
+                     }
+                  </div>
+                  <div className="pagination">
+                     {
+                        pagination.map((item, index)=>(
+                           <div onClick={() => setCurrentPage(item)} key={index} className={item === currentPage ? "pagItem active" : "pagItem" }>{item}</div>
                         ))
                      }
                   </div>

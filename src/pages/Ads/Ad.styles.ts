@@ -46,31 +46,44 @@ export const PageArea = styled.div`
       .category-item{
          display:flex;
          align-items:center;
+         justify-content:flex-start;
          padding:5px;
          color:#333;
          font-size:0.8rem;
          gap:5px;
          cursor:pointer;
 
+         input[type='radio']{
+            width:fit-content;
+            accent-color:#018a80;
+         }
+
          &:hover{
             background-color:#ddd;
          }
-
-         .checkBox-item{
-            display:inline-block;
-            width:12px;
-            height:12px;
-            border:1px solid #333;
-            border-radius:2px;
-            cursor:pointer;
-         }
-
-         .active{
-            background-color:#018a80;
-            border:1px solid #666;
-         }
       }
 
+      .button-container{
+       text-align:center;
+       margin:10px;
+  
+       button{
+         font-size:0.8rem;
+         font-weight:500;
+         background-color:#fff;;
+         border:2px solid #48309C;
+         border-radius:5px;
+         padding:5px 8px;
+         cursor:pointer;
+
+         &:hover{
+            background-color:#48309C;
+            color:#fff;
+            transition: all ease 0.2s;
+         }
+       }
+
+      }
    }
 
    .right-side{
@@ -88,5 +101,31 @@ export const PageArea = styled.div`
          display:flex;
          flex-wrap:wrap;
       }
+
+      .pagination{
+         display:flex;
+         align-items:center;
+         justify-content:center;
+         margin:10px 0;
+         gap:5px;
+
+         .pagItem{
+            padding: 5px 8px;
+            border:1px solid #ccc;
+            border-radius: 8px;
+            font-size:0.8rem;
+            cursor: pointer;
+
+            &:hover{
+               background-color:rgb(72, 48, 156,0.3);
+            }
+
+            &.active{
+               background-color:rgb(72, 48, 156,0.3);
+               color:#fff;
+            }
+         }
+      }
+      
    }
 `
