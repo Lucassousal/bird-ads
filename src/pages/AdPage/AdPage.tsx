@@ -13,6 +13,7 @@ export const AdPage = () => {
 
    const ad = useLoaderData() as Ad; 
    
+   console.log(ad)
 
    return(
       <>
@@ -37,19 +38,31 @@ export const AdPage = () => {
                         <p>Criado em: {formatDate(ad.dateCreated)}  -  {ad.views} pessoas viram esse anúncio</p>
                      </div>
                      <div className="box">
-                        <Carousel className="carousel" 
-                           autoPlay={false}
-                           thumbWidth={60}
-                           showStatus={false}
-                        >
-                           {
-                              ad.images.map((item, index) => (
-                                 <div key={index}>
-                                    <img  src={item} alt="" />
-                                 </div>
-                              ))
-                           }
-                        </Carousel>
+                     {
+                        ad.images.length > 0 ?
+
+                           <Carousel className="carousel" 
+                              autoPlay={false}
+                              thumbWidth={60}
+                              showStatus={false}
+                           >
+                              {
+                                 ad.images.map((item, index) => (
+                                    <div key={index}>
+                                       <img  src={item} alt="" />
+                                    </div>
+                                 ))
+                              }
+                           </Carousel>
+
+                        :
+
+                        <div className="image-container">
+                           <img src="http://localhost:5000/media/default.jpg" alt="" />
+                        </div>
+
+                     }
+
                         <div className="ad-description">
                           <p>{ad.description}</p>
                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit et neque similique explicabo eius facere est! Assumenda, omnis cum corporis aliquam sequi delectus quo consequuntur saepe laudantium, porro, nisi corrupti?

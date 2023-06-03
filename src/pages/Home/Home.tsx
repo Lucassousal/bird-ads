@@ -75,8 +75,8 @@ export const Home = () => {
           <div className="searchBox">
             <p>{errors.q?.message ? errors.q?.message : errors.state?.message}</p>
             <form action="/ads" method="GET" onSubmit={onSubmit}>
-              <input {...register('q', {required: 'Digite o que você quer pesquisar'})} type="text" placeholder="Buscar" />
-              <select {...register('state', {required: 'Informe em qual estado quer pesquisar'})} defaultValue={''}>
+              <input {...register('q')} type="text" placeholder="Buscar" />
+              <select {...register('state')} defaultValue={''}>
                 <option value=''>Selecione</option>
                 {stateList.map((item)=>(
                   <option key={item._id} value={item.name}>{item.name}</option>

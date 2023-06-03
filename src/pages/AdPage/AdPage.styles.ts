@@ -48,6 +48,14 @@ export const PageArea = styled.div`
             text-align:justify;
          }
 
+         .image-container{
+            width:400px;
+            margin-bottom:20px;
+
+            img{
+               width:inherit;
+            }
+         }
       }
 
    }
