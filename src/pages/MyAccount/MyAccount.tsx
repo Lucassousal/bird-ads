@@ -10,10 +10,10 @@ import ReactModal from "react-modal"
 import { useForm } from "react-hook-form"
 
 type FormData = {
-   name:string;
-   email:string;
-   state:string;
-   password:string;
+   name?:string;
+   email?:string;
+   state?:string;
+   password?:string;
  };
 
  type StateType = {
@@ -35,6 +35,39 @@ export const MyAccount = () =>{
 
    const onSubmit = handleSubmit( async formData => {
       console.log(formData)
+      setDisable(true)
+
+      if(formData.name === data?.name) delete formData.name
+      if(formData.email === data?.email) delete formData.email
+      if(formData.state === data?.state){
+         delete formData.state
+      } else {
+         const newState = states?.find(item => item.name === formData.state)
+         formData.state = newState?._id
+      }
+      if(formData.password === '') delete formData.password
+
+      if(Object.keys(formData).length > 0){
+         console.log('entrou')
+         console.log(formData)
+         const json = await api.updateUserInfo(formData)
+
+         if(!json.error){
+            setDisable(false)
+            setModalEditUser(false)
+            window.location.reload()
+            return
+         }else{
+            console.log(json.error)
+         }
+
+      }else{
+         console.log('não entrou')
+         console.log(formData)
+         setDisable(false)
+         setModalEditUser(false)
+         return
+      }
    })
 
    const editUserInfo = () => {
@@ -58,7 +91,7 @@ export const MyAccount = () =>{
          const json = await api.getStates()
          setStates(json)
       }
-      getStates
+      getStates()
    },[api])
       
    return (
@@ -95,10 +128,10 @@ export const MyAccount = () =>{
                                  bottom: 'auto',
                                  marginRight: '-50%',
                                  transform: 'translate(-50%, -50%)',
-                                 borderRadius:"15px 0 0 15px",
+                                 borderRadius:"15px",
                                  overflow:"auto",
                                  maxHeight:"90vh",
-                                 minWidth:'50vw',
+                                 minWidth:'40vw',
                               },
                               overlay:{
                                  backgroundColor:'rgb(0,0,0,0.6)'
@@ -147,7 +180,7 @@ export const MyAccount = () =>{
                                        {
                                        states &&
                                           states.map((item) => (
-                                             <option key={item._id} value={item._id}>{item.name}</option>
+                                             <option key={item._id} value={item.name}>{item.name}</option>
                                           ))
                                        }
                                     </select>
@@ -155,13 +188,14 @@ export const MyAccount = () =>{
                                  </div>
                               </label>
                               <label  htmlFor="password">
-                                 <div className="area--title">Senha</div>
+                                 <div className="area--title">Nova senha</div>
                                  <div className="area--input">
                                     <input 
-                                       {...register('password', {required: 'O password é obrigatório'})} 
+                                       {...register('password')} 
                                        id="password" 
                                        type="password" 
                                        disabled={disable}
+                                       defaultValue={''}
                                     />
                                     {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
                                  </div>
@@ -173,8 +207,6 @@ export const MyAccount = () =>{
                            <button onClick={closeModalEditUser} className="close-button">Fechar sem  modificar</button>
                         </UserModalContainer>
                      </ReactModal>
-
-
                   </div>
                </div>
                <div className="right-side">

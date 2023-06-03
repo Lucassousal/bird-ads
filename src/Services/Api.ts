@@ -38,6 +38,32 @@ const apiPost = async (
   }
 };
 
+const apiPut = async (
+  endpoint: string,
+  body: any
+) => {
+  
+  if (!body.token) {
+    const token = Cookies.get("token");
+    if (token) {
+      body.token = token;
+    }
+  }
+
+  try {
+    const response = await http.put(endpoint, body);
+
+    if (response.data.notallowed) {
+      window.location.href = "/";
+      return;
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const apiGet = async (endpoint: string, body: {sort?:string, limit?:number, token?:string, id?:string} = {}) => {
   if (!body.token) {
     const token = Cookies.get("token");
@@ -148,6 +174,10 @@ export const Api = {
   },
   updateInfoAd: async (data, id:string) => {
     const response = await apiPost(`ad/${id}`, data)
+    return response
+  },
+  updateUserInfo: async (data) => {
+    const response = await apiPut(`user/me`, data)
     return response
   },
   
