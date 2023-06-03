@@ -32,7 +32,6 @@ export const AddAd = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data)
     setDisable(true)
     setError('')
 
@@ -58,7 +57,6 @@ export const AddAd = () => {
       setError(json.error)
     }
 
-   console.log(fData.get('price'))
     setDisable(false)
   }) 
 
@@ -138,13 +136,7 @@ export const AddAd = () => {
                            />
                         )}
                      />
-                     
-                     {/* <input 
-                        {...register('price', {required: 'O Preço é obrigatório'})} 
-                        id="price" 
-                        type="text" 
-                        disabled={disable}
-                     /> */}
+
                      {errors.price && <ErrorMessage>{errors.price.message}</ErrorMessage>}
                   </div>
                </label>

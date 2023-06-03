@@ -10,7 +10,6 @@ export const RequireAuth = ({children}:Props) => {
    const isAuth = isLogged()   
    
    if(!isAuth) {
-      console.log('entrou')
       return <Navigate to={'/signin'}/>
    }
 

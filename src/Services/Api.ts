@@ -134,10 +134,22 @@ export const Api = {
       console.error(error)
     }
   },
-  addAd: async (data) => {
+  addAd: async (data:globalThis.FormData) => {
     const response = await apiFile('ad/add', data)
     return response
-  }
+  },
+  getMe: async () => {
+    const response = await apiGet('user/me')
+    return response
+  },
+  updateImageAd: async (data:globalThis.FormData, id:string) => {
+    const response = await apiFile(`ad/${id}`, data)
+    return response
+  },
+  updateInfoAd: async (data, id:string) => {
+    const response = await apiPost(`ad/${id}`, data)
+    return response
+  },
   
 };
 

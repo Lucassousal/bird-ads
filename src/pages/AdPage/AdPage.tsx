@@ -7,21 +7,11 @@ import { Ad } from "../../types/Ad";
 import Header from "../../components/partials/Header/Header";
 import { AdItem } from "../../components/partials/AdItem/AdItem";
 import Footer from "../../components/partials/Footer/Footer";
+import { formatDate } from "../../helpers/formateDate";
 
 export const AdPage = () => {
 
    const ad = useLoaderData() as Ad; 
-   console.log("🚀 ~ file: AdPage.tsx:11 ~ AdPage ~ ad:", ad)
-
-   const formatDate = (date:string) => {
-      const currentDate = new Date (date)
-      const months = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro']
-      const day = currentDate.getDate();
-      const month = currentDate.getMonth();
-      const year = currentDate.getFullYear();
-
-      return `${day} de ${months[month]} de ${year}`
-   }
    
 
    return(

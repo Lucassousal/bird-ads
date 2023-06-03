@@ -8,6 +8,7 @@ import { Api } from "./Services/Api";
 import { RequireAuth } from "./helpers/RequireAuth";
 import { AddAd } from "./pages/AddAd/AddAd";
 import { Ads } from "./pages/Ads/Ads";
+import { MyAccount } from "./pages/MyAccount/MyAccount";
 
 export const routes = createBrowserRouter([
   {
@@ -50,6 +51,13 @@ export const routes = createBrowserRouter([
   {
     path:"/ads",
     element:<Ads/>
+  },
+  {
+    path:"/my-account",
+    element:
+    <RequireAuth>
+      <MyAccount/>
+    </RequireAuth>
   },
 
 ])

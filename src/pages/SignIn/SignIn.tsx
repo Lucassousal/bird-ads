@@ -22,8 +22,6 @@ export const SignIn = () => {
   const api = useApi();
   
   const onSubmit = handleSubmit( async (data) => {
-    
-    console.log(data)
 
     setDisable(true)
     setError('')

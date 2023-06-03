@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { reducerActionType } from "../types/reducerActionType";
 
 export type UserType = {
@@ -9,6 +10,7 @@ export const userInitialState: UserType = {
   name: "",
   age: 0,
 };
+
 
 export const userReducer = (state: UserType, action: reducerActionType) => {
   switch (action.type) {
