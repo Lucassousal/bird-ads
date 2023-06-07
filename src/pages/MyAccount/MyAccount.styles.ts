@@ -60,6 +60,42 @@ export const MyAccountPageArea = styled.div`
          gap:10px;
       }
    }
+
+   @media (max-width:730px) {
+      flex-direction:column;
+
+      .left-side{
+         max-width:100%;
+      }
+
+      .fhsTOc{
+         margin: 0;
+         text-align:center;
+      }
+
+      .right-side .ads-list{
+         padding:0;
+      }
+
+   }
+
+   @media (max-width:460px){
+      .left-side-AdList {
+         .container-image img{
+            max-height: 80px;
+         }
+      }
+   }
+
+   @media (max-width:345px){
+      .left-side-AdList {
+         .container-image img{
+            max-height: 60px;
+            margin-right: 10px;
+         }
+      }
+   }
+
 `
 
 export const UserModalContainer = styled.div`

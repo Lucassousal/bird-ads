@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PageArea = styled.div`
-   max-width:450px;
+  max-width:450px;
   height:100%;
   display:flex;
   flex-direction:column;
@@ -31,7 +31,7 @@ export const PageArea = styled.div`
     .area--title {
       color: #333;
       font-weight: 500;
-      width:300px;
+      max-width:300px;
     }
 
     .area--input{
@@ -133,5 +133,14 @@ export const PageArea = styled.div`
       }
     }
 
+  @media (max-width: 470px){
+    
+    margin:20px;
+    
+    .bmvPh{
+      display:flex;
+      justify-content:center;
+    }
+  }
 
 `

@@ -9,6 +9,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AdItem } from "../../components/partials/AdItem/AdItem";
 import { ClipLoader } from "react-spinners";
 import Footer from "../../components/partials/Footer/Footer";
+import Collapse from "rc-collapse";
+import 'rc-collapse/assets/index.css';
 
  type StateType = {
    _id:string;
@@ -21,6 +23,7 @@ export const Ads = () => {
 
    const api = useApi()
    const navigate = useNavigate()
+   const Panel = Collapse.Panel
 
    const useQueryString = () => {
       return new URLSearchParams(useLocation().search)
@@ -50,11 +53,11 @@ export const Ads = () => {
    const getAdsList = async () => {
       setLoading(true)
 
-      const offset = (currentPage -1 ) * 2
+      const offset = (currentPage -1 ) * 4
 
       const ads = await api.getAds({
          sort:'desc',
-         limit:2,
+         limit:4,
          q,
          cat,
          state,
@@ -138,7 +141,57 @@ export const Ads = () => {
          <PageContainer>
             <PageArea>
                <div className="left-side">
-                  <p className="filter-name">Filtre sua busca</p>
+                  <Collapse accordion={true}>
+                     <Panel header={'Filtre sua busca'}>
+                        <form>
+                           <input 
+                              name='q'
+                              type="text"  
+                              placeholder="Buscar" 
+                              value={q ?? ''}
+                              onChange={e=>setQ(e.target.value)}
+                           />
+                           <p className="filter-name">Estado:</p>
+                           <select 
+                              name='state' 
+                              value={state ?? ''}
+                              onChange={e=>setState(e.target.value)}
+                           >
+                              <option value=""></option>
+                              {
+                                 stateList.map((item)=>(
+                                    <option key={item._id} value={item.name}>{item.name}</option>
+                                 ))
+                              }
+                           </select>
+                           <p className="filter-name">Categorias:</p>
+                           <ul>
+                              {
+                                 categories.map((item)=>(
+                                    <li 
+                                       className="category-item" 
+                                       key={item._id}
+                                    >
+                                       <input 
+                                          name="cat" 
+                                          type="radio" 
+                                          id={item._id} 
+                                          value={item.slug} 
+                                          checked={cat === item.slug}
+                                          onChange={(e)=> setCat(e.target.value)} 
+                                       />
+                                       <label htmlFor={item._id}>{item.name}</label>
+                                    </li>
+                                 ))
+                              }
+                           </ul>
+                        </form>
+                        <div className="button-container">
+                           <button onClick={cleanFilter}>Limpar filtros</button>
+                        </div>
+                     </Panel>
+                  </Collapse>
+                  {/* <p className="filter-name">Filtre sua busca</p>
                   <form>
                      <input 
                         name='q'
@@ -184,7 +237,7 @@ export const Ads = () => {
                   </form>
                   <div className="button-container">
                      <button onClick={cleanFilter}>Limpar filtros</button>
-                  </div>
+                  </div> */}
                </div>
                <div className="right-side">
                   <h3>Resultados da pesquisa</h3>
@@ -203,7 +256,7 @@ export const Ads = () => {
                   <div className="adList" style={{opacity: resultOpacity}}>
                      {
                         adsList.map((item) => (
-                           <AdItem key={item.id} data={item} width="25%"/>
+                           <AdItem key={item.id} data={item} width="20%"/>
                         ))
                      }
                   </div>

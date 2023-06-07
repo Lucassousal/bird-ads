@@ -100,7 +100,7 @@ export const Home = () => {
           <ListContainer>
             {
               adsList.map((item)=> (
-                <AdItem key={item.id} data={item}/>
+                <AdItem key={item.id} data={item} width="18%"/>
               ))
             }
           </ListContainer>

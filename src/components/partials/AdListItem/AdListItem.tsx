@@ -200,9 +200,11 @@ const AdListItem = ({data}:Props) => {
                         overflow:"auto",
                         maxHeight:"90vh",
                         minWidth:'50vw',
+                        zIndex:'999',
                      },
                      overlay:{
-                        backgroundColor:'rgb(0,0,0,0.6)'
+                        backgroundColor:'rgb(0,0,0,0.6)',
+                        zIndex:'999',
                      }
                   }
                }

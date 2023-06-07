@@ -8,6 +8,7 @@ type Props = {
 export const Item = styled.div<Props>`
 
    width: ${props => props.width ? props.width : '20%'}; 
+   min-width:175px;
 
    a{
       display:inline-block;
@@ -72,27 +73,5 @@ export const Item = styled.div<Props>`
       font-weight:600;
    }
 
-   @media (max-width:926px){
-      width: 25%;
-   }
-
-   @media (max-width:750px){
-      width:33%;
-   }
    
-   @media (max-width:558px){
-      width:50%;
-   }
-
-   @media (max-width:454px){
-      width:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-
-      a{
-         align-self:center;
-      }
-   }
 `

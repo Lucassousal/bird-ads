@@ -7,6 +7,7 @@ export const PageArea = styled.div`
    .left-side{
       width:250px;
       margin-right:10px;
+      padding-left: 20px;
 
 
       .filter-name{
@@ -101,6 +102,8 @@ export const PageArea = styled.div`
       .adList{
          display:flex;
          flex-wrap:wrap;
+         justify-content:space-around;
+         gap:10px;
       }
 
       .pagination{
@@ -127,6 +130,17 @@ export const PageArea = styled.div`
             }
          }
       }
-      
+   }
+
+   @media (max-width:665px) {
+      flex-direction:column;
+      .left-side{
+         width:100%;
+         padding: 0 20px;
+      }
+
+      .right-side{
+         margin-top:20px;
+      }
    }
 `

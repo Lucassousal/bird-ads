@@ -132,9 +132,11 @@ export const MyAccount = () =>{
                                  overflow:"auto",
                                  maxHeight:"90vh",
                                  minWidth:'40vw',
+                                 zIndex:'999',
                               },
                               overlay:{
-                                 backgroundColor:'rgb(0,0,0,0.6)'
+                                 backgroundColor:'rgb(0,0,0,0.6)',
+                                 zIndex:'999',
                               }
                            }
                         }
