@@ -4,6 +4,7 @@ export const HeaderArea = styled.div`
   background-color:#fff;
   height:70px;
   border-bottom:1px solid #ccc;
+  padding:0 20px;
 
   a {
     text-decoration:none;
@@ -35,18 +36,18 @@ export const HeaderArea = styled.div`
     }
   }
 
-  nav{
+  .defaultNav{
       padding: 10px 0;
       display:flex;
       align-items:center;
 
-      ul, li {
+      .defaultUl {
         list-style: none;
         margin: 0;
         padding:0;
       }
 
-      ul {
+      .defaultUl {
         display:flex;
         align-items:center;
         height: 40px;

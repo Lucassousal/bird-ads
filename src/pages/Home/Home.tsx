@@ -73,7 +73,6 @@ export const Home = () => {
       <SearchArea>
         <PageContainer>
           <div className="searchBox">
-            <p>{errors.q?.message ? errors.q?.message : errors.state?.message}</p>
             <form action="/ads" method="GET" onSubmit={onSubmit}>
               <input {...register('q')} type="text" placeholder="Buscar" />
               <select {...register('state')} defaultValue={''}>
@@ -105,7 +104,7 @@ export const Home = () => {
               ))
             }
           </ListContainer>
-          <Link to={'/ads'}>Ver todos</Link>
+          <Link className="seeAll" to={'/ads'}>Ver todos</Link>
         </PageArea>
       </PageContainer>
       <Footer/>

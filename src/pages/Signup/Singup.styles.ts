@@ -107,6 +107,17 @@ export const PageArea =styled.div`
       margin-top:15px;
       font-size:0.8rem;
     }
+
+    @media (max-width: 486px){
+      max-width:340px;
+
+      form{
+        .area--title{
+          width:280px;
+        }
+
+      }
+    }
 `
 
 export const ErrorMessage = styled.div`

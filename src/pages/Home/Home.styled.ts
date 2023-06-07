@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const SearchArea = styled.div`
    background-color:#48309C;
-   padding:20px 0;
+   padding:20px;
 
    .searchBox {
 
@@ -58,6 +58,18 @@ export const SearchArea = styled.div`
          }
       }
    }
+
+   @media (max-width:462px){
+      form{
+         flex-direction:column;
+         gap:15px;
+
+         input, select{
+            width:100%;
+         }
+      }
+   }
+
 `
 
 export const CategoryContainer = styled.div`
@@ -65,6 +77,9 @@ export const CategoryContainer = styled.div`
    justify-content:space-around;
    align-items:center;
    padding-top:20px;
+   gap:40px;
+   flex-wrap:wrap;
+   margin-top:10px;
 
    a{
       display:flex;
@@ -94,7 +109,7 @@ export const PageArea = styled.div`
       font-size:1.2rem;
    }
 
-   a{
+   .seeAll{
       text-decoration:none;
       color: #018A80;
       font-size:0.8rem;

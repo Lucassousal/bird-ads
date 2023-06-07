@@ -6,6 +6,7 @@ export const BodyPage = styled.div`
    width:100%;
    height:100%;
    background-color:#fff;
+   padding:0 20px;
 `
 
 export const PageArea = styled.div`
@@ -96,6 +97,7 @@ export const PageArea = styled.div`
             background-color:#018a80;
             padding:10px 20px;
             border-radius:10px;
+            font-size:1rem;
 
             &:hover{
                   text-decoration:underline;
@@ -105,7 +107,7 @@ export const PageArea = styled.div`
             &::before{
                content:'';
                display:inline-block;
-               width:20px;
+               width:24px;
                height:20px;
                background-image:url(${email});
                background-position:center;
@@ -146,7 +148,68 @@ export const PageArea = styled.div`
       }
    }
   
+   @media (max-width:1180px){
+      .rightSide{
+
+         .sell--info{
+
+            .seller-contact > span{
+               font-size:0.8rem;;
+            }
+            .price{
+               font-size:1.2rem;;
+            }
+         }
+      }
+   }
+
+   @media (max-width:1120px){
+      .rightSide{
+
+         .sell--info{
+
+            .seller-contact > span{
+               font-size:0.8rem;
+            }
+            .price{
+               font-size:1.0rem;
+               padding:15px 42px;
+            }
+         }
+      }
+   }
    
+   @media (max-width:1000px){
+      .box{
+         flex-direction: column;
+         gap:0 !important;
+      }
+   }
+
+
+   @media (max-width: 699px){
+      flex-direction: column;
+      .rightSide{
+         margin:0;
+
+         .sell--info{
+
+            .price{
+               font-size:1.2rem;
+               padding:15px 60px;
+            }
+         
+         }
+
+      }
+   }
+
+   @media (max-width: 480px){
+      .leftSide .box .carousel {
+         min-width: 200px;
+      }
+   }
+
 `
 
 export const OtherAreas = styled.div`

@@ -47,7 +47,7 @@ export const Item = styled.div<Props>`
          padding:3px 8px;
          border-radius:5px;
          box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.56);
-         z-index:999;
+         z-index:2;
 
       }
    }
@@ -70,5 +70,29 @@ export const Item = styled.div<Props>`
 
    .itemPrice{
       font-weight:600;
+   }
+
+   @media (max-width:926px){
+      width: 25%;
+   }
+
+   @media (max-width:750px){
+      width:33%;
+   }
+   
+   @media (max-width:558px){
+      width:50%;
+   }
+
+   @media (max-width:454px){
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+
+      a{
+         align-self:center;
+      }
    }
 `
