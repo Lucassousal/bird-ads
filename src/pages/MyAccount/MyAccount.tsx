@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { ErrorMessage, PageContainer, PageTitle } from "../../components/MainComponents"
 import Footer from "../../components/partials/Footer/Footer"
 import Header from "../../components/partials/Header/Header"
-import { MyAccountPageArea, UserModalContainer } from "./MyAccount.styles"
+import { MyAccountPageArea, UserModalContainer,NoAds } from "./MyAccount.styles"
 import { useApi } from "../../Services/Api"
 import { User } from "../../types/User"
 import AdListItem from "../../components/partials/AdListItem/AdListItem"
@@ -32,6 +32,7 @@ export const MyAccount = () =>{
 
    const api = useApi()
 
+   console.log(data)
 
    const onSubmit = handleSubmit( async formData => {
       console.log(formData)
@@ -217,9 +218,18 @@ export const MyAccount = () =>{
                      <div>
                         <ul className="ads-list">
                            {
-                              data?.ads.map((item, index)=>(
-                                 <AdListItem key={index} data={item._doc}/>
-                              ))
+                              data?.ads && (
+
+                                 data?.ads.length > 0 ?
+
+                                    data?.ads.map((item, index)=>(
+                                       <AdListItem key={index} data={item._doc}/>
+                                    ))
+
+                                 :
+
+                                    <NoAds>Não há anúncios publicados</NoAds>
+                              )
                            }
                         </ul>
                      </div>

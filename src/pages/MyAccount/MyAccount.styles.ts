@@ -199,3 +199,7 @@ export const UserModalContainer = styled.div`
    }
 
 `
+export const NoAds = styled.p`
+   margin:auto;
+   
+`
