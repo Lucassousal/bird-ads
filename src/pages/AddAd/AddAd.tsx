@@ -9,6 +9,7 @@ import { createNumberMask } from "text-mask-addons";
 import MaskedInput from "react-text-mask";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/partials/Footer/Footer";
+import {toast} from 'react-toastify'
 
 
 type FormData = {
@@ -24,7 +25,6 @@ type FormData = {
 export const AddAd = () => {
 
   const [disable, setDisable] = useState(false)
-  const [error, setError] = useState('')
   const [categories, setCategories] = useState<CategoryType[]>([])
   const {register, control, handleSubmit, formState:{errors} } = useForm<FormData>();
 
@@ -33,7 +33,6 @@ export const AddAd = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     setDisable(true)
-    setError('')
 
     const fData = new FormData()
     fData.append('title', data.title)
@@ -51,10 +50,15 @@ export const AddAd = () => {
     const json = await api.addAd(fData)
 
     if(!json.error){
-      navigate(`/ad/${json.id}`)
+      toast.success('Anúncio adicionado com sucesso!')
+      toast.info('Redirecionando para página do anúncio')
+      setTimeout(()=> {
+         navigate(`/ad/${json.id}`)
+      },5000)
+     
       return
     } else{
-      setError(json.error)
+      toast.error(json.error)
     }
 
     setDisable(false)
@@ -81,12 +85,6 @@ export const AddAd = () => {
          <Header/>
          <PageContainer>
             <PageArea>
-            
-            {
-               error &&
-               <GeralErrorMessage>{error}</GeralErrorMessage>
-            }
-
             <div className="container--description">
                <PageTitle>Poste um anúncio</PageTitle>
             </div>

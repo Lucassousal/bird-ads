@@ -8,6 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { ErrorMessage } from "../../MainComponents";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import {toast} from 'react-toastify'
 
 const BASE_URL = import.meta.env.VITE_REACT_API_URL
 
@@ -66,7 +67,7 @@ const AdListItem = ({data}:Props) => {
 
    const onSubmit = handleSubmit( async dat => {
       setDisable(true)
-      currentImages[0].default=true
+      
 
       const sendData = {
          title: dat.title,
@@ -82,31 +83,42 @@ const AdListItem = ({data}:Props) => {
      
 
       if(dat.images.length > 0){
+
+         currentImages[0].default=true
+         
          const fData = new FormData()
 
          for(let i = 0; i < dat.images.length; i++){
             fData.append('img', dat.images[i] )
-          }
+         }
 
          const jsonAddImages = await api.updateImageAd(fData, data._id)
 
          if(!jsonAddImages.error){
             setDisable(false)
             setModalEditAd(false)
-            window.location.reload()
+            toast.success('Alterações feitas com sucesso!')
+            setTimeout(()=>{
+               window.location.reload()
+            },3000)
             return
-          } else{
-            console.log(json.error)
-          }
+         } else{
+            toast.error(jsonAddImages.error)
+         }
+
       } else {
+         
          if(!json.error){
             setDisable(false)
             setModalEditAd(false)
-            window.location.reload()
+            toast.success('Alterações feitas com sucesso!')
+            setTimeout(()=>{
+               window.location.reload()
+            },3000)
             return
-          } else{
-            console.log(json.error)
-          }
+         } else{
+            toast.error(json.error)
+         }
       }
    })
 

@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form"
 import { useApi } from "../../Services/Api"
 import { useState } from "react"
 import { doLogin } from "../../helpers/AuthHandler"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type FormData = {
   email:string;
@@ -16,7 +18,6 @@ type FormData = {
 export const SignIn = () => {
 
   const [disable, setDisable] = useState(false)
-  const [error, setError] = useState('')
   const {register, handleSubmit, formState:{errors} } = useForm<FormData>();
 
   const api = useApi();
@@ -24,12 +25,11 @@ export const SignIn = () => {
   const onSubmit = handleSubmit( async (data) => {
 
     setDisable(true)
-    setError('')
 
     const json = await api.login(data.email, data.password)
   
     if(json.error){
-      setError(json.error)
+      toast.error(json.error)
     }else{
       doLogin(json.token, data.remember)
       window.location.href='/'
@@ -42,12 +42,6 @@ export const SignIn = () => {
   return(
     <PageContainer>
       <PageArea>
-        
-        {
-          error &&
-          <GeralErrorMessage>{error}</GeralErrorMessage>
-        }
-
         <div className="container--description">
           <img src={logo} alt="logo_Bird" width={'80px'}/>
           <PageTitle>Acesse a sua Conta</PageTitle>

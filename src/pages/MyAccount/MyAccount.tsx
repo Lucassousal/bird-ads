@@ -8,6 +8,7 @@ import { User } from "../../types/User"
 import AdListItem from "../../components/partials/AdListItem/AdListItem"
 import ReactModal from "react-modal"
 import { useForm } from "react-hook-form"
+import {toast} from 'react-toastify'
 
 type FormData = {
    name?:string;
@@ -56,10 +57,13 @@ export const MyAccount = () =>{
          if(!json.error){
             setDisable(false)
             setModalEditUser(false)
-            window.location.reload()
+            toast.success('Alterações salvas com sucesso!')
+            setTimeout(()=>{
+               window.location.reload()
+            },3000)
             return
          }else{
-            console.log(json.error)
+            toast.error(json.error)
          }
 
       }else{
