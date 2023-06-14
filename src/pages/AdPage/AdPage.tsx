@@ -9,6 +9,8 @@ import { AdItem } from "../../components/partials/AdItem/AdItem";
 import Footer from "../../components/partials/Footer/Footer";
 import { formatDate } from "../../helpers/formateDate";
 
+const BASE_URL = import.meta.env.VITE_REACT_API_URL
+
 export const AdPage = () => {
 
    const ad = useLoaderData() as Ad; 
@@ -58,7 +60,7 @@ export const AdPage = () => {
                         :
 
                         <div className="image-container">
-                           <img src="http://localhost:5000/media/default.jpg" alt="" />
+                           <img src={`${BASE_URL}/media/default.jpg`} alt="" />
                         </div>
 
                      }

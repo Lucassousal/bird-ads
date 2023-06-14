@@ -3,8 +3,10 @@ import Cookies from "js-cookie";
 import qs from "qs";
 import { Params } from "react-router-dom";
 
+const BASE_URL = import.meta.env.VITE_REACT_API_URL
+
 const http = axios.create({
-  baseURL: "http://localhost:5000", //http://localhost:5000  -- http://alunos.b7web.com.br:501
+  baseURL: BASE_URL ,
   timeout: 5000,
   headers: {
     Accept: "application/json",

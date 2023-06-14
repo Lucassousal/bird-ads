@@ -9,6 +9,8 @@ import { ErrorMessage } from "../../MainComponents";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 
+const BASE_URL = import.meta.env.VITE_REACT_API_URL
+
 type Props = {
    data:{
       _id:string;
@@ -41,6 +43,8 @@ type FormData = {
 ReactModal.setAppElement('#root')
 
 const AdListItem = ({data}:Props) => {
+   
+   console.log(data.images)
 
    const priceMask = createNumberMask({
       prefix:"R$ ",
@@ -148,12 +152,12 @@ const AdListItem = ({data}:Props) => {
             {
             data.images.length == 0 ?
                <div className="container-image">
-                  <img  src={`http://localhost:5000/media/default.jpg`} alt="" />
+                  <img  src={`${BASE_URL}/media/default.jpg`} alt="" />
                </div>
             :
                             
                <div className="container-image">
-                  <img  src={`http://localhost:5000/media/${data.images[0].url}`} alt="" />
+                  <img  src={`${BASE_URL}/media/${data.images[0].url}`} alt="" />
                </div>
             }
 
@@ -309,7 +313,7 @@ const AdListItem = ({data}:Props) => {
                               currentImages.map((item, index)=>(
                                  <div key={index} className="image-container">
                                     <span onClick={() => RemoveCurrentImage(item.url)} className="remove-image">&#215;</span>
-                                    <img src={`http://localhost:5000/media/${item.url}`} alt="" />
+                                    <img src={`${BASE_URL}/media/${item.url}`} alt="" />
                                  </div>
                               ))
                            }
