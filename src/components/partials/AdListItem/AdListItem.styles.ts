@@ -238,3 +238,9 @@ export const ModalContainer = styled.div`
 
 
 `
+
+export const NoImages = styled.p`
+   margin:10px 0 25px 0;
+   font-size:0.9rem;
+
+`

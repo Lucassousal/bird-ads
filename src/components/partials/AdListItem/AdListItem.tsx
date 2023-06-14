@@ -1,4 +1,4 @@
-import { ContainerAd, ModalContainer } from "./AdListItem.styles"
+import { ContainerAd, ModalContainer, NoImages } from "./AdListItem.styles"
 import { formatDate } from "../../../helpers/formateDate";
 import { useEffect, useState } from "react";
 import { useApi } from "../../../Services/Api";
@@ -310,12 +310,18 @@ const AdListItem = ({data}:Props) => {
                         <label className="area--title">Imagens</label>
                         <div className="area-images">
                            {
-                              currentImages.map((item, index)=>(
-                                 <div key={index} className="image-container">
-                                    <span onClick={() => RemoveCurrentImage(item.url)} className="remove-image">&#215;</span>
-                                    <img src={`${BASE_URL}/media/${item.url}`} alt="" />
-                                 </div>
-                              ))
+                              currentImages.length > 0 ?
+
+                                 currentImages.map((item, index)=>(
+                                    <div key={index} className="image-container">
+                                       <span onClick={() => RemoveCurrentImage(item.url)} className="remove-image">&#215;</span>
+                                       <img src={`${BASE_URL}/media/${item.url}`} alt="" />
+                                    </div>
+                                 ))
+
+                              :
+
+                              <NoImages>O produto não tem imagens</NoImages>
                            }
                         </div>
                      </div>
