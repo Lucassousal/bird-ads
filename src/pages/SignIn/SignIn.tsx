@@ -7,7 +7,6 @@ import { useApi } from "../../Services/Api"
 import { useState } from "react"
 import { doLogin } from "../../helpers/AuthHandler"
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 type FormData = {
   email:string;

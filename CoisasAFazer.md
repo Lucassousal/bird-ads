@@ -1,5 +1,7 @@
 adicionar:
 
 - contexto (informações do usuário)
-- toast (react toastify)
-- verificação de dados (zod)
+- modificação de dados sem alteração na edição de anuncios
+- validação de password forte zod
+- página não encontrada com variação para erros
+

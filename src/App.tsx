@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Template } from './components/MainComponents'
 import { routes } from './routes'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
 

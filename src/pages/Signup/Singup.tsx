@@ -6,46 +6,56 @@ import logo from '../../assets/bird-logo.png'
 import { useEffect, useState } from 'react';
 import { useApi } from '../../Services/Api';
 import { doLogin } from '../../helpers/AuthHandler';
-
-type FormData = {
-  name:string;
-  email:string;
-  stateLoc:string;
-  password:string;
-  confirmPassword:string;
-}
+import { toast } from 'react-toastify'
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type StateList = {
   _id:string;
   name:string;
 }
 
-
 export const Signup = () => {
   
+  const schema = z.object({
+    name: z.string()
+      .nonempty('O nome é obrigatório')
+      .min(6, 'Insira nome e sobrenome'),
+    email: z.string()
+      .nonempty('O email é obrigatório')
+      .email('Formato de email inválido'),
+    stateLoc: z.string()
+      .nonempty('O estado é obrigatório'),
+    password: z.string()
+      .nonempty('A senha é obrigatória')
+      .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+    confirmPassword: z.string()
+      .nonempty('A confirmação da senha é obrigatória')
+      .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message:'As senha não são iguais',
+    path:['confirmPassword']
+  })
+
+  type TypeSchema = z.infer<typeof schema>
+
   const [disable, setDisable] = useState(false)
-  const [error, setError] = useState('')
   const [stateList, setStateList] = useState<StateList[]>([])
 
   const api = useApi();
 
-  const {register, handleSubmit, formState:{errors} } = useForm<FormData>();
+  const {register, handleSubmit, formState:{errors} } = useForm<TypeSchema>({resolver: zodResolver(schema)});
   
   const onSubmit = handleSubmit( async (data) => {
     
     setDisable(true)
-    setError('')
-
-    if(data.password !== data.confirmPassword){
-      setError('As senhas são diferentes')
-      setDisable(false)
-      return
-    }
 
     const json = await api.register(data.name, data.email, data.password, data.stateLoc);
 
-    if(json.error){
-      setError(json.error);
+    if(json.error.email || json.error.state){
+      json.error.email ? toast.error(json.error.email.msg) : toast.error(json.error.state.msg)
     } else {
       doLogin(json.token);
       window.location.href='/'
@@ -67,12 +77,6 @@ export const Signup = () => {
   return(
     <PageContainer>
       <PageArea>
-        
-        {
-          error &&
-          <GeralErrorMessage>{error}</GeralErrorMessage>
-        }
-
         <div className="container--description">
           <img src={logo} alt="logo_Bird" width={'80px'}/>
           <PageTitle>Crie a sua Conta. É grátis!</PageTitle>
@@ -83,7 +87,7 @@ export const Signup = () => {
             <div className="area--title">Nome Completo</div>
             <div className="area--input">
               <input 
-                {...register('name', {required: 'O nome é obrigatório'})} 
+                {...register('name')} 
                 id="name" 
                 type="text" 
                 disabled={disable}
@@ -95,7 +99,7 @@ export const Signup = () => {
             <div className="area--title">E-mail</div>
             <div className="area--input">
               <input 
-                {...register('email', {required: 'O email é obrigatório'})} 
+                {...register('email')} 
                 id="email" 
                 type="email" 
                 disabled={disable}
@@ -107,7 +111,7 @@ export const Signup = () => {
             <div className="area--title">Estado</div>
             <div className="area--input">
               <select 
-                {...register('stateLoc', {required: 'O estado é obrigatório'})} 
+                {...register('stateLoc')} 
                 id="stateLoc" 
                 disabled={disable}
               >
@@ -124,11 +128,7 @@ export const Signup = () => {
             <div className="area--title">Senha</div>
             <div className="area--input">
               <input 
-                {...register('password', {
-                  required: 'A senha é obrigatória', 
-                  minLength:{value:6, message:"A senha deve ter no minimo 6 dígitos"}
-                  })
-                } 
+                {...register('password')} 
                 id="password" 
                 type="password" 
                 disabled={disable}
@@ -140,11 +140,7 @@ export const Signup = () => {
             <div className="area--title">Confirme a senha</div>
             <div className="area--input">
               <input 
-                {...register('confirmPassword', {
-                  required: 'A confirmação da senha é obrigatória', 
-                  minLength:{value:6, message:"A senha deve ter no minimo 6 dígitos"}
-                  })
-                } 
+                {...register('confirmPassword')} 
                 id="confirmPassword" 
                 type="password" 
                 disabled={disable}
