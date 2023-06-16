@@ -33,10 +33,8 @@ export const MyAccount = () =>{
 
    const api = useApi()
 
-   console.log(data)
-
    const onSubmit = handleSubmit( async formData => {
-      console.log(formData)
+      
       setDisable(true)
 
       if(formData.name === data?.name) delete formData.name
@@ -50,8 +48,7 @@ export const MyAccount = () =>{
       if(formData.password === '') delete formData.password
 
       if(Object.keys(formData).length > 0){
-         console.log('entrou')
-         console.log(formData)
+
          const json = await api.updateUserInfo(formData)
 
          if(!json.error){
@@ -67,10 +64,9 @@ export const MyAccount = () =>{
          }
 
       }else{
-         console.log('não entrou')
-         console.log(formData)
          setDisable(false)
          setModalEditUser(false)
+         toast.info('Nenhuma alteração realizada')
          return
       }
    })
