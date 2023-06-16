@@ -83,6 +83,7 @@ export const PageArea = styled.div`
 
       input{
         accent-color:#018A80;
+        width:fit-content;
       }
 
     }

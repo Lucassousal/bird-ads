@@ -1,4 +1,4 @@
-import { PageContainer, PageTitle, GeralErrorMessage } from '../../components/MainComponents'
+import { PageContainer, PageTitle} from '../../components/MainComponents'
 import { useForm } from "react-hook-form";
 import { PageArea, ErrorMessage } from "./Singup.styles" 
 import { Link } from 'react-router-dom';
@@ -28,7 +28,11 @@ export const Signup = () => {
       .nonempty('O estado é obrigatório'),
     password: z.string()
       .nonempty('A senha é obrigatória')
-      .min(6, 'A senha deve ter no mínimo 6 caracteres'),
+      .min(6, 'A senha deve ter no mínimo 6 caracteres')
+      .regex(/^(?=.*[A-Z])/, 'Deve ter uma letra maiúscula')
+      .regex(/(?=.*[0-9])/, 'Deve ter um número')
+      .regex(/(?=.*[!@#$&*])/, 'Deve ter um caractere especial')
+      .regex(/(?=.*[a-z])/, 'Deve ter uma letra minúscula'),
     confirmPassword: z.string()
       .nonempty('A confirmação da senha é obrigatória')
       .min(6, 'A senha deve ter no mínimo 6 caracteres'),
@@ -49,7 +53,7 @@ export const Signup = () => {
   const {register, handleSubmit, formState:{errors} } = useForm<TypeSchema>({resolver: zodResolver(schema)});
   
   const onSubmit = handleSubmit( async (data) => {
-    
+
     setDisable(true)
 
     const json = await api.register(data.name, data.email, data.password, data.stateLoc);

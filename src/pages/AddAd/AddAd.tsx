@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/partials/Header/Header"
 import { useApi } from "../../Services/Api";
 import { useForm, Controller } from "react-hook-form";
-import { ErrorMessage, GeralErrorMessage, PageContainer, PageTitle } from "../../components/MainComponents";
+import { ErrorMessage, PageContainer, PageTitle } from "../../components/MainComponents";
 import { PageArea } from "./AddAd.styles";
 import { CategoryType } from "../../types/Category";
 import { createNumberMask } from "text-mask-addons";
@@ -10,6 +10,7 @@ import MaskedInput from "react-text-mask";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/partials/Footer/Footer";
 import {toast} from 'react-toastify'
+
 
 
 type FormData = {
@@ -94,7 +95,7 @@ export const AddAd = () => {
                   <div className="area--title">Titulo</div>
                   <div className="area--input">
                      <input 
-                        {...register('title', {required: 'O título é obrigatório'})} 
+                        {...register('title', {required: 'O título é obrigatório', minLength:{value:6, message:'Detalhe melhor o nome do produto'},  })} 
                         id="title" 
                         type="text" 
                         disabled={disable}
@@ -153,7 +154,7 @@ export const AddAd = () => {
                   <div className="area--title">Descrição</div>
                   <div className="area--input">
                      <textarea 
-                        {...register('description', {required: 'A descrição é obrigatória'})} 
+                        {...register('description', {required: 'A descrição é obrigatória', minLength:{value:20, message:'Detalhe melhor o produto'}})} 
                         id="description" 
                         disabled={disable}
                      />
@@ -164,7 +165,7 @@ export const AddAd = () => {
                   <div className="area--title">Imagens (1 ou mais)</div>
                   <div className="area--input">
                      <input 
-                        {...register('images', {required: 'A imagem é obrigatória'})} 
+                        {...register('images', {required: 'A imagem é obrigatório'})} 
                         id="images" 
                         type="file"
                         disabled={disable}
