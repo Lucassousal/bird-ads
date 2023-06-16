@@ -1,4 +1,4 @@
-import { PageContainer, PageTitle, GeralErrorMessage } from "../../components/MainComponents"
+import { PageContainer, PageTitle} from "../../components/MainComponents"
 import { PageArea, ErrorMessage } from "./SignIn.styles"
 import { Link } from "react-router-dom"
 import logo from '../../assets/bird-logo.png'

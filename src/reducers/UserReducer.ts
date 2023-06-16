@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { reducerActionType } from "../types/reducerActionType";
 
 export type UserType = {

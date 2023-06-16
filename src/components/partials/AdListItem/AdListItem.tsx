@@ -39,14 +39,25 @@ type FormData = {
    status: boolean;
    description:string;
    images:string;
- };
+};
+
+type sendDataType = {
+   title?: string;
+   status?: string;
+   cat?: string;
+   price?: string;
+   priceneg?: string;
+   desc?: string;
+   images?: {
+      url?: string | undefined;
+      default?: boolean | undefined;
+   }[];
+}
 
 ReactModal.setAppElement('#root')
 
 const AdListItem = ({data}:Props) => {
    
-   console.log(data.images)
-
    const priceMask = createNumberMask({
       prefix:"R$ ",
       includeThousandsSeparator:true,
@@ -66,10 +77,13 @@ const AdListItem = ({data}:Props) => {
 
 
    const onSubmit = handleSubmit( async dat => {
+      
+      let updateInfo = false;
+      let updateNewImages = false;
+      
       setDisable(true)
       
-
-      const sendData = {
+      const sendData:sendDataType = {
          title: dat.title,
          status: `${dat.status}`,
          cat: findSlugCategory(dat.category),
@@ -79,12 +93,30 @@ const AdListItem = ({data}:Props) => {
          images: currentImages,
       }
 
-      const json = await api.updateInfoAd(sendData, data._id)
-     
+      if(sendData.title === data.title) delete sendData.title
+      if(sendData.status === data.status) delete sendData.status
+      if(dat.category === data.category) delete sendData.cat
+      if(parseFloat(dat.price.replace(',','.')) === data.price) delete sendData.price
+      if(sendData.priceneg === JSON.stringify(data.priceNegotiable)) delete sendData.priceneg
+      if(sendData.desc === data.description) delete sendData.desc
+      if(JSON.stringify(sendData.images) === JSON.stringify(data.images)) delete sendData.images
 
+      if(Object.keys(sendData).length > 0){
+
+         if (currentImages.length > 0) currentImages[0].default = true
+
+         const json = await api.updateInfoAd(sendData, data._id)
+
+         if(!json.error){
+            updateInfo = true;
+         } else{
+            toast.error(json.error)
+         }
+      }
+ 
       if(dat.images.length > 0){
 
-         currentImages[0].default=true
+         if (currentImages.length > 0) currentImages[0].default = true
          
          const fData = new FormData()
 
@@ -95,31 +127,29 @@ const AdListItem = ({data}:Props) => {
          const jsonAddImages = await api.updateImageAd(fData, data._id)
 
          if(!jsonAddImages.error){
-            setDisable(false)
-            setModalEditAd(false)
-            toast.success('Alterações feitas com sucesso!')
-            setTimeout(()=>{
-               window.location.reload()
-            },3000)
-            return
-         } else{
+            updateNewImages = true
+         }else{
             toast.error(jsonAddImages.error)
          }
 
-      } else {
-         
-         if(!json.error){
-            setDisable(false)
-            setModalEditAd(false)
-            toast.success('Alterações feitas com sucesso!')
-            setTimeout(()=>{
-               window.location.reload()
-            },3000)
-            return
-         } else{
-            toast.error(json.error)
-         }
       }
+
+      if (updateInfo || updateNewImages){
+
+         setDisable(false)
+         setModalEditAd(false)
+         toast.success('Alterações feitas com sucesso!')
+         setTimeout(()=>{
+            window.location.reload()
+         },3000)
+         return
+      } 
+        
+
+      setDisable(false)
+      setModalEditAd(false)
+      toast.info('Nenhuma alteração realizada')
+      return
    })
 
    const RemoveCurrentImage = (url?:string) => {

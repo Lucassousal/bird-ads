@@ -24,7 +24,7 @@ type StateType = {
 export const Home = () => {
   const api = useApi()
   const navigate = useNavigate()
-  const {register, handleSubmit, formState:{errors} } = useForm<FormData>();
+  const {register, handleSubmit } = useForm<FormData>();
   
   const [stateList, setStateList] = useState<StateType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])
