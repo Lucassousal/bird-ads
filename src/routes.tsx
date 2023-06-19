@@ -14,19 +14,22 @@ export const routes = createBrowserRouter([
   {
     path:'/',
     element:<Home/>,
-    errorElement:<NotFound/>
+    errorElement:<NotFound />
   },
   {
     path:"/about",
     element:<div>Sobre</div>,
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"/signin",
-    element:<SignIn/>
+    element:<SignIn/>,
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"/signup",
-    element:<Signup/>
+    element:<Signup/>,
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"/ad/:id",
@@ -39,7 +42,7 @@ export const routes = createBrowserRouter([
         console.error(error)
      }
     },
-    errorElement:<NotFound/>
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"post-an-ad",
@@ -47,17 +50,20 @@ export const routes = createBrowserRouter([
       <RequireAuth>
         <AddAd/>
       </RequireAuth>,
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"/ads",
-    element:<Ads/>
+    element:<Ads/>,
+    errorElement:<NotFound errorPage/>
   },
   {
     path:"/my-account",
     element:
     <RequireAuth>
       <MyAccount/>
-    </RequireAuth>
+    </RequireAuth>,
+    errorElement:<NotFound errorPage/>
   },
 
 ])
