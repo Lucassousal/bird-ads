@@ -100,10 +100,20 @@ export const PageArea = styled.div`
       }
 
       .adList{
-         display:flex;
-         flex-wrap:wrap;
-         justify-content:space-around;
+         display:grid;
+         grid-template-columns: repeat(4, 1fr);
+         justify-items:center;
          gap:10px;
+
+         @media (max-width: 977px){
+            grid-template-columns: repeat(3, 1fr)
+         }
+         @media (max-width: 811px){
+            grid-template-columns: repeat(2, 1fr)
+         }
+         @media (max-width: 395px){
+            grid-template-columns: 1fr;
+         }
       }
 
       .pagination{

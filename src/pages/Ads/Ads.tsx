@@ -191,53 +191,6 @@ export const Ads = () => {
                         </div>
                      </Panel>
                   </Collapse>
-                  {/* <p className="filter-name">Filtre sua busca</p>
-                  <form>
-                     <input 
-                        name='q'
-                        type="text"  
-                        placeholder="Buscar" 
-                        value={q ?? ''}
-                        onChange={e=>setQ(e.target.value)}
-                     />
-                     <p className="filter-name">Estado:</p>
-                     <select 
-                        name='state' 
-                        value={state ?? ''}
-                        onChange={e=>setState(e.target.value)}
-                     >
-                        <option value=""></option>
-                        {
-                           stateList.map((item)=>(
-                              <option key={item._id} value={item.name}>{item.name}</option>
-                           ))
-                        }
-                     </select>
-                     <p className="filter-name">Categorias:</p>
-                     <ul>
-                        {
-                           categories.map((item)=>(
-                              <li 
-                                 className="category-item" 
-                                 key={item._id}
-                              >
-                                 <input 
-                                    name="cat" 
-                                    type="radio" 
-                                    id={item._id} 
-                                    value={item.slug} 
-                                    checked={cat === item.slug}
-                                    onChange={(e)=> setCat(e.target.value)} 
-                                 />
-                                 <label htmlFor={item._id}>{item.name}</label>
-                              </li>
-                           ))
-                        }
-                     </ul>
-                  </form>
-                  <div className="button-container">
-                     <button onClick={cleanFilter}>Limpar filtros</button>
-                  </div> */}
                </div>
                <div className="right-side">
                   <h3>Resultados da pesquisa</h3>

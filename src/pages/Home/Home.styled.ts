@@ -125,10 +125,22 @@ export const PageArea = styled.div`
 
 
 export const ListContainer = styled.div`
-   display:flex;
-   flex-wrap:wrap;
-   justify-content:center;
+   display:grid;
+   grid-template-columns:repeat(5, 1fr);
    gap:20px;
+   justify-items:center;
 
+   @media (max-width: 978px){
+      grid-template-columns:repeat(4, 1fr);
+   }
+   @media (max-width: 790px){
+      grid-template-columns:repeat(3, 1fr);
+   }
+   @media (max-width: 586px){
+      grid-template-columns:repeat(2, 1fr);
+   }
+   @media (max-width: 398px){
+      grid-template-columns: 1fr;
+   }
 `
 
