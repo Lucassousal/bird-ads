@@ -7,7 +7,6 @@ const BASE_URL = import.meta.env.VITE_REACT_API_URL
 
 const http = axios.create({
   baseURL: BASE_URL ,
-  timeout: 5000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
