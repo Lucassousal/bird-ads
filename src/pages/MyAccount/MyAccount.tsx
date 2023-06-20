@@ -9,6 +9,7 @@ import AdListItem from "../../components/partials/AdListItem/AdListItem"
 import ReactModal from "react-modal"
 import { useForm } from "react-hook-form"
 import {toast} from 'react-toastify'
+import { CategoryType } from "../../types/Category"
 
 type FormData = {
    name?:string;
@@ -28,6 +29,7 @@ export const MyAccount = () =>{
    const [modalEditUser, setModalEditUser] = useState(false)
    const [disable, setDisable] = useState(false)
    const [states, setStates] = useState<StateType[]>()
+   const [categories, setCategories] = useState<CategoryType[]>()
 
    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
@@ -93,6 +95,15 @@ export const MyAccount = () =>{
          setStates(json)
       }
       getStates()
+   },[api])
+
+   useEffect(() => {
+      const getCategories = async () => {
+         const json = await api.getCategories()
+         setCategories(json)
+      }
+
+      getCategories()
    },[api])
       
    return (
@@ -218,12 +229,12 @@ export const MyAccount = () =>{
                      <div>
                         <ul className="ads-list">
                            {
-                              data?.ads && (
+                              data && (
 
                                  data?.ads.length > 0 ?
 
                                     data?.ads.map((item, index)=>(
-                                       <AdListItem key={index} data={item._doc}/>
+                                       <AdListItem key={index} data={item._doc} categories={categories ?? []}/>
                                     ))
 
                                  :

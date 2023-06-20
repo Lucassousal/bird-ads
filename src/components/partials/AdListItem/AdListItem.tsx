@@ -1,6 +1,6 @@
 import { ContainerAd, ModalContainer, NoImages } from "./AdListItem.styles"
 import { formatDate } from "../../../helpers/formateDate";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "../../../Services/Api";
 import { CategoryType } from "../../../types/Category";
 import ReactModal from 'react-modal'
@@ -28,7 +28,8 @@ type Props = {
       views:number,
       state:string,
       status:string;
-   }   
+   },
+   categories:CategoryType[]
 }
 
 type FormData = {
@@ -56,7 +57,7 @@ type sendDataType = {
 
 ReactModal.setAppElement('#root')
 
-const AdListItem = ({data}:Props) => {
+const AdListItem = ({data, categories}:Props) => {
    
    const priceMask = createNumberMask({
       prefix:"R$ ",
@@ -66,7 +67,6 @@ const AdListItem = ({data}:Props) => {
       decimalSymbol:','
   })
 
-   const [categories, setCategories] = useState<CategoryType[]>()
    const [modaEditAd, setModalEditAd] = useState(false)
    const [disable, setDisable] = useState(false)
    const [currentImages, setCurrentImages] = useState(data.images)
@@ -178,14 +178,7 @@ const AdListItem = ({data}:Props) => {
       return categ?.name ?? ''
    }
 
-   useEffect(() => {
-      const getCategories = async () => {
-         const json = await api.getCategories()
-         setCategories(json)
-      }
-
-      getCategories()
-   },[api])
+   
 
    return(
       <ContainerAd>
