@@ -226,24 +226,22 @@ export const MyAccount = () =>{
                <div className="right-side">
                   <PageTitle>Meus Anúncios</PageTitle>
                   <div className="ads-box-container">
-                     <div>
-                        <ul className="ads-list">
-                           {
-                              data && (
+                     <ul className="ads-list">
+                        {
+                           data && (
 
-                                 data?.ads.length > 0 ?
+                              data?.ads.length > 0 ?
 
-                                    data?.ads.map((item, index)=>(
-                                       <AdListItem key={index} data={item._doc} categories={categories ?? []}/>
-                                    ))
+                                 data?.ads.map((item, index)=>(
+                                    <AdListItem key={index} data={item._doc} categories={categories ?? []}/>
+                                 ))
 
-                                 :
+                              :
 
-                                    <NoAds>Não há anúncios publicados</NoAds>
-                              )
-                           }
-                        </ul>
-                     </div>
+                                 <NoAds>Não há anúncios publicados</NoAds>
+                           )
+                        }
+                     </ul>
                   </div>
                </div>
             </MyAccountPageArea>

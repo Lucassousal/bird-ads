@@ -1,4 +1,4 @@
-import { CategoryContainer, ListContainer, PageArea, SearchArea } from "./Home.styled"
+import { CategoryContainer, ListContainer, PageArea, SearchArea, BannerArea } from "./Home.styled"
 import { PageContainer } from "../../components/MainComponents"
 import { useApi } from "../../Services/Api"
 import { useForm } from "react-hook-form"
@@ -9,6 +9,7 @@ import Header from "../../components/partials/Header/Header"
 import { AdsType } from "../../types/Ads"
 import { CategoryType } from "../../types/Category"
 import Footer from "../../components/partials/Footer/Footer"
+import Banner from '../../assets/banner.jpeg'
 
 type FormData = {
   q: string;
@@ -94,6 +95,9 @@ export const Home = () => {
           </CategoryContainer>
         </PageContainer>
       </SearchArea>
+      <BannerArea data={Banner}>
+        <div className="banner-content"></div>
+      </BannerArea>
       <PageContainer>
         <PageArea>
           <h2>Anúncios recentes</h2>

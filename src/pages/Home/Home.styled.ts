@@ -144,3 +144,51 @@ export const ListContainer = styled.div`
    }
 `
 
+
+type Props ={
+   data: string
+}
+
+export const BannerArea = styled.div<Props>`
+   background-color: #FFDE51;
+   background: linear-gradient(90deg, rgba(255,225,53,1) 10%, rgba(223,177,89,1) 90%);
+   height:400px;
+
+   .banner-content{
+      background-image: url(${({data}) => data ? data : '' });
+      background-size:cover;
+      background-repeat:no-repeat;
+      background-position:center;
+      max-width:1200px;
+      height:400px;
+      margin: auto;
+
+
+   }
+
+   @media (max-width:960px){
+         height:300px;
+         
+         .banner-content{
+            height:300px;
+         }
+   
+      }
+
+   @media (max-width:736px){
+         height:200px;
+
+         .banner-content{
+            height:200px;
+         }
+   
+      }
+   @media (max-width:492px){
+         height:150px;
+
+         .banner-content{
+            height:150px;
+         }
+   
+      }
+`
