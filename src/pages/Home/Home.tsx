@@ -7,51 +7,28 @@ import { Link, useNavigate } from "react-router-dom"
 import { AdItem } from "../../components/partials/AdItem/AdItem"
 import Header from "../../components/partials/Header/Header"
 import { AdsType } from "../../types/Ads"
-import { CategoryType } from "../../types/Category"
 import Footer from "../../components/partials/Footer/Footer"
 import Banner from '../../assets/banner.jpeg'
+import { GeneralContext } from "../../context/Context"
 
 type FormData = {
   q: string;
   state:string;
 }
 
-type StateType = {
-  _id:string;
-  name:string;
-}
-
 
 export const Home = () => {
+  
   const api = useApi()
+  const {categories, stateList} = GeneralContext()
   const navigate = useNavigate()
   const {register, handleSubmit } = useForm<FormData>();
   
-  const [stateList, setStateList] = useState<StateType[]>([])
-  const [categories, setCategories] = useState<CategoryType[]>([])
   const [adsList, setAdsList] = useState<AdsType[]>([])
   
   const onSubmit = handleSubmit( async (data) => {
     navigate(`/ads?q=${data.q}&state=${data.state}`)
   })
-
-  useEffect(() => {
-    const getStates = async () => {
-      const sList = await api.getStates();
-      setStateList(sList);
-    }
-
-    getStates()
-  },[api])
-
-  useEffect(() => {
-    const getCategories = async () => {
-      const categories = await api.getCategories();    
-      setCategories(categories);
-    }
-
-    getCategories()
-  },[api])
   
   useEffect(() => {
     const getRecentsAds = async () => {
@@ -78,15 +55,20 @@ export const Home = () => {
               <input {...register('q')} type="text" placeholder="Buscar" />
               <select {...register('state')} defaultValue={''}>
                 <option value=''>Selecione</option>
-                {stateList.map((item)=>(
-                  <option key={item._id} value={item.name}>{item.name}</option>
-                ))}
+                {
+                  stateList &&
+                  stateList.map((item)=>(
+                    <option key={item._id} value={item.name}>{item.name}</option>
+                  ))
+                }
               </select>
               <button type='submit'>Pesquisar</button>
             </form>
           </div>
           <CategoryContainer>
-              {categories.map((item) => (
+              {
+                categories &&
+                categories.map((item) => (
                 <Link key={item._id} to={`/ads?cat=${item.slug}`}>
                   <img src={item.img} alt={item.name} />
                   <span>{item.name}</span>

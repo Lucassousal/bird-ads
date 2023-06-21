@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../../components/partials/Header/Header"
 import { useApi } from "../../Services/Api";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage, PageContainer, PageTitle } from "../../components/MainComponents";
 import { PageArea } from "./AddAd.styles";
-import { CategoryType } from "../../types/Category";
 import { createNumberMask } from "text-mask-addons";
 import MaskedInput from "react-text-mask";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/partials/Footer/Footer";
 import {toast} from 'react-toastify'
+import { GeneralContext } from "../../context/Context";
 
 
 
@@ -26,8 +26,9 @@ type FormData = {
 export const AddAd = () => {
 
   const [disable, setDisable] = useState(false)
-  const [categories, setCategories] = useState<CategoryType[]>([])
   const {register, control, handleSubmit, formState:{errors} } = useForm<FormData>();
+
+  const {categories} = GeneralContext()
 
   const api = useApi();
   const navigate = useNavigate();
@@ -72,14 +73,6 @@ export const AddAd = () => {
       allowDecimal:true,
       decimalSymbol:','
   })
-
-  useEffect(()=> {
-      const getCategories = async () => {
-         const categories = await api.getCategories()
-         setCategories(categories)
-      }
-      getCategories();
-  },[api])
 
    return(
       <>

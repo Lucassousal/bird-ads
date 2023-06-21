@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { PageArea } from "./Ad.styles"
 import { useApi } from "../../Services/Api";
-import { CategoryType } from "../../types/Category";
 import { AdsType } from "../../types/Ads";
 import Header from "../../components/partials/Header/Header";
 import { PageContainer } from "../../components/MainComponents";
@@ -11,19 +10,18 @@ import { ClipLoader } from "react-spinners";
 import Footer from "../../components/partials/Footer/Footer";
 import Collapse from "rc-collapse";
 import 'rc-collapse/assets/index.css';
+import { GeneralContext } from "../../context/Context";
 
- type StateType = {
-   _id:string;
-   name:string;
- }
 
  let timer;
 
 export const Ads = () => {
 
+   const {categories, stateList} = GeneralContext()
    const api = useApi()
    const navigate = useNavigate()
    const Panel = Collapse.Panel
+
 
    const useQueryString = () => {
       return new URLSearchParams(useLocation().search)
@@ -31,8 +29,6 @@ export const Ads = () => {
    const query = useQueryString();
 
    const [adsTotal, setAdsTotal] = useState(0);
-   const [stateList, setStateList] = useState<StateType[]>([])
-   const [categories, setCategories] = useState<CategoryType[]>([])
    const [adsList, setAdsList] = useState<AdsType[]>([])
    const [pageCount, setPageCount] = useState(0)
    const [currentPage, setCurrentPage] = useState(1)
@@ -109,26 +105,7 @@ export const Ads = () => {
       setCurrentPage(1)
 
    },[q, cat, state])
-
-
-   useEffect(() => {
-      const getStates = async () => {
-         const sList = await api.getStates();
-         setStateList(sList);
-      }
-
-      getStates()
-   },[api])
-
-   useEffect(() => {
-      const getCategories = async () => {
-         const categories = await api.getCategories();    
-         setCategories(categories);
-      }
-
-      getCategories()
-   },[api])
-      
+     
 
    useEffect(()=>{
       setResultOpacity(0.3)
@@ -159,6 +136,7 @@ export const Ads = () => {
                            >
                               <option value=""></option>
                               {
+                                 stateList &&
                                  stateList.map((item)=>(
                                     <option key={item._id} value={item.name}>{item.name}</option>
                                  ))
@@ -167,6 +145,7 @@ export const Ads = () => {
                            <p className="filter-name">Categorias:</p>
                            <ul>
                               {
+                                 categories &&
                                  categories.map((item)=>(
                                     <li 
                                        className="category-item" 

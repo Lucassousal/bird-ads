@@ -3,17 +3,14 @@ import { useForm } from "react-hook-form";
 import { PageArea, ErrorMessage } from "./Singup.styles" 
 import { Link } from 'react-router-dom';
 import logo from '../../assets/bird-logo.png'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useApi } from '../../Services/Api';
 import { doLogin } from '../../helpers/AuthHandler';
 import { toast } from 'react-toastify'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { GeneralContext } from '../../context/Context';
 
-type StateList = {
-  _id:string;
-  name:string;
-}
 
 export const Signup = () => {
   
@@ -46,9 +43,9 @@ export const Signup = () => {
   type TypeSchema = z.infer<typeof schema>
 
   const [disable, setDisable] = useState(false)
-  const [stateList, setStateList] = useState<StateList[]>([])
 
   const api = useApi();
+  const {stateList} = GeneralContext()
 
   const {register, handleSubmit, formState:{errors} } = useForm<TypeSchema>({resolver: zodResolver(schema)});
   
@@ -68,15 +65,6 @@ export const Signup = () => {
     setDisable(false)
 
   })
-
-  useEffect(() => {
-    const getStates = async () => {
-      const sList = await api.getStates();
-      setStateList(sList);
-    }
-
-    getStates()
-  },[api])
 
   return(
     <PageContainer>
@@ -120,10 +108,12 @@ export const Signup = () => {
                 disabled={disable}
               >
                 <option value=''></option>
-                {stateList.map(item => (
-                  <option key={item._id} value={item._id}>{item.name}</option>
-                )
-                )}
+                {
+                  stateList &&
+                  stateList.map(item => (
+                    <option key={item._id} value={item._id}>{item.name}</option>
+                  ))
+                }
               </select>
               {errors.stateLoc && <ErrorMessage>{errors.stateLoc.message}</ErrorMessage>}
             </div>

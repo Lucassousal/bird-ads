@@ -1,40 +1,55 @@
-import React, {createContext, useReducer} from 'react'
-import {UserType, userInitialState, userReducer} from '../reducers/UserReducer.ts'
-import { ThemeType, themeInitialState, themeReducer } from '../reducers/ThemeReducer.ts'
-import { reducerActionType } from '../types/reducerActionType.ts'
+import React, {createContext, useState, useEffect, useContext,} from 'react'
+import { CategoryType } from '../types/Category'
+import { useApi } from '../Services/Api'
+import { StateListType } from '../types/State'
 
-type initialStateType = {
-  user:UserType;
-  theme:ThemeType;
-}
 
 type ContextType = {
-  state:initialStateType;
-  dispatch: React.Dispatch<any>
+ categories: CategoryType[];
+ setCategories: React.Dispatch<React.SetStateAction<CategoryType[]>>
+ stateList: StateListType[]
+ setStateList: React.Dispatch<React.SetStateAction<StateListType[]>>
 }
 
-const initialState = {
-  user:userInitialState,
-  theme:themeInitialState,
-}
-
-export const Context = createContext<ContextType>({
-  state:initialState,
-  dispatch: () => null
-})
-
-const mainReducer = (state: initialStateType, action: reducerActionType) => ({
-  user: userReducer(state.user, action),
-  theme: themeReducer(state.theme, action),
-})
+export const Context = createContext<Partial<ContextType>>({})
 
 export const ContextProvider = ({children}:React.PropsWithChildren) => {
-  const [state, dispatch] = useReducer(mainReducer, initialState)
+  
+  const api = useApi();
+  
+  const [categories, setCategories] = useState<CategoryType[]>([])
+  const [stateList, setStateList] = useState<StateListType[]>([])
+
+  useEffect(()=> {
+    const getCategories = async () => {
+       const categories = await api.getCategories()
+       setCategories(categories)
+    }
+    getCategories();
+  },[api])
+
+  useEffect(() => {
+    const getStates = async () => {
+       const sList = await api.getStates();
+       setStateList(sList);
+    }
+
+    getStates()
+ },[api])
+
 
   return (
-    <Context.Provider value={{state, dispatch}}>
+    <Context.Provider value={
+      {
+        categories, 
+        setCategories,
+        stateList,
+        setStateList
+      }
+    }>
         {children}
     </Context.Provider>
   )
 }
 
+export const GeneralContext = () => useContext(Context)

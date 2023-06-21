@@ -9,7 +9,7 @@ import AdListItem from "../../components/partials/AdListItem/AdListItem"
 import ReactModal from "react-modal"
 import { useForm } from "react-hook-form"
 import {toast} from 'react-toastify'
-import { CategoryType } from "../../types/Category"
+import { GeneralContext } from "../../context/Context"
 
 type FormData = {
    name?:string;
@@ -18,20 +18,16 @@ type FormData = {
    password?:string;
  };
 
- type StateType = {
-   _id:string;
-   name:string;
- }
 
 export const MyAccount = () =>{
    
    const [data, setData] = useState<User>()
    const [modalEditUser, setModalEditUser] = useState(false)
    const [disable, setDisable] = useState(false)
-   const [states, setStates] = useState<StateType[]>()
-   const [categories, setCategories] = useState<CategoryType[]>()
 
    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+
+   const {categories, stateList} = GeneralContext()
 
    const api = useApi()
 
@@ -44,7 +40,7 @@ export const MyAccount = () =>{
       if(formData.state === data?.state){
          delete formData.state
       } else {
-         const newState = states?.find(item => item.name === formData.state)
+         const newState = stateList?.find(item => item.name === formData.state)
          formData.state = newState?._id
       }
       if(formData.password === '') delete formData.password
@@ -89,23 +85,6 @@ export const MyAccount = () =>{
       getMe()
    },[api])
 
-   useEffect(()=>{
-      const getStates = async () => {
-         const json = await api.getStates()
-         setStates(json)
-      }
-      getStates()
-   },[api])
-
-   useEffect(() => {
-      const getCategories = async () => {
-         const json = await api.getCategories()
-         setCategories(json)
-      }
-
-      getCategories()
-   },[api])
-      
    return (
       <>
          <Header/>
@@ -192,8 +171,8 @@ export const MyAccount = () =>{
                                        defaultValue={data?.state}
                                     >
                                        {
-                                       states &&
-                                          states.map((item) => (
+                                       stateList &&
+                                       stateList.map((item) => (
                                              <option key={item._id} value={item.name}>{item.name}</option>
                                           ))
                                        }

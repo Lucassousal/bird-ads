@@ -1,10 +1,6 @@
 adicionar:
 
-- contexto (informações do usuário) {
-   user info
-   categorias
-   stados
-}
-- banners
+-banners adicionais na home
 - página de contato
+
 
