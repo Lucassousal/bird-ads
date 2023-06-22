@@ -192,3 +192,65 @@ export const BannerArea = styled.div<Props>`
    
       }
 `
+
+type PropsAuxiliaryBannerType = {
+   second:string;
+   third:string
+}
+
+export const AuxiliaryBannersContainer = styled.div<PropsAuxiliaryBannerType>`
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   padding: 40px 0 80px 0;
+   margin:10px -20px;
+   background-color: #eee;
+
+   h2{
+      font-size:3rem;
+      color:#333;
+      margin-bottom:80px;
+   }
+
+   .container-aux-banners{
+      display:flex;
+      justify-content:space-around;
+      align-items:center;
+      width:100%;
+
+      a{
+         display:inline-flex;
+         filter:drop-shadow(0px 0px 0.75rem rgba(0,0,0,0.28));
+
+         &:hover{
+            transition: all ease 0.4s;
+            scale: 1.05;
+         }
+
+
+         .auxiliary-banners{
+            border-radius:15px;
+            background-color:transparent;
+   
+            &.second{
+               height:400px;
+               width:350px;
+               background-image:url(${({second}) => second ? second : '' });
+               background-size:cover;
+               background-repeat:no-repeat;
+               background-position:center;
+            }
+            &.third{
+               height:400px;
+               width:350px;
+               background-image:url(${({third}) => third ? third : '' });
+               background-size:cover;
+               background-repeat:no-repeat;
+               background-position:center;
+            }
+         }
+   
+      }
+   }
+
+`

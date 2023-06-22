@@ -1,4 +1,4 @@
-import { CategoryContainer, ListContainer, PageArea, SearchArea, BannerArea } from "./Home.styled"
+import { CategoryContainer, ListContainer, PageArea, SearchArea, BannerArea, AuxiliaryBannersContainer } from "./Home.styled"
 import { PageContainer } from "../../components/MainComponents"
 import { useApi } from "../../Services/Api"
 import { useForm } from "react-hook-form"
@@ -9,6 +9,8 @@ import Header from "../../components/partials/Header/Header"
 import { AdsType } from "../../types/Ads"
 import Footer from "../../components/partials/Footer/Footer"
 import Banner from '../../assets/banner.jpeg'
+import SecondBanner from '../../assets/second-banner.jpg'
+import ThirdBanner from '../../assets/third-banner.jpg'
 import { GeneralContext } from "../../context/Context"
 
 type FormData = {
@@ -91,6 +93,17 @@ export const Home = () => {
             }
           </ListContainer>
           <Link className="seeAll" to={'/ads'}>Ver todos</Link>
+          <AuxiliaryBannersContainer second={SecondBanner} third={ThirdBanner}>
+            <h2>Mostre seu anúncio na Bird!</h2>
+            <div className="container-aux-banners">
+              <Link to={'/signup'}>
+                <div className="auxiliary-banners second"></div>
+              </Link>
+              <Link to={'/post-an-ad'}>
+                <div className="auxiliary-banners third"></div>
+              </Link>
+            </div>
+          </AuxiliaryBannersContainer>
         </PageArea>
       </PageContainer>
       <Footer/>
