@@ -253,4 +253,22 @@ export const AuxiliaryBannersContainer = styled.div<PropsAuxiliaryBannerType>`
       }
    }
 
+   @media (max-width: 748px){
+      .container-aux-banners{
+         flex-direction:column;
+         gap:40px;
+      }
+   }
+   @media (max-width: 656px){
+      h2{
+         font-size:2.5rem;
+         text-align:center;
+      }
+   }
+   @media (max-width: 370px){
+      .container-aux-banners > a > .auxiliary-banners.second, .container-aux-banners > a > .auxiliary-banners.third{
+         height:350px;
+         width:300px;
+      }
+   }
 `
