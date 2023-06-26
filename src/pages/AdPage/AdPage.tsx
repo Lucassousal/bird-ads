@@ -64,14 +64,9 @@ export const AdPage = () => {
                         </div>
 
                      }
-
-                        <div className="ad-description">
-                          <p>{ad.description}</p>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit et neque similique explicabo eius facere est! Assumenda, omnis cum corporis aliquam sequi delectus quo consequuntur saepe laudantium, porro, nisi corrupti?
-                           Facilis sed, reprehenderit optio fuga, eveniet magni tenetur corporis veritatis hic error cupiditate expedita numquam repellendus reiciendis eius nisi a ad iure, quos voluptatibus? Recusandae soluta mollitia officiis consequatur obcaecati.
-                           Ratione qui odit doloribus deserunt minima non pariatur corporis culpa cumque, libero quam! Aperiam, impedit asperiores voluptates dicta aspernatur a iure numquam, commodi minus in cumque modi, corporis molestiae possimus. 
-                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias laudantium temporibus id quam repellat? Nam unde labore quaerat consequatur, animi, ut dolor, sed maiores ab fugiat dolores tempore omnis hic.</p>
-                        </div>
+                     <div className="ad-description">
+                        <p>{ad.description}</p>
+                     </div>
                      </div>
                   </div>
                   <div className="rightSide">
