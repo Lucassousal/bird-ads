@@ -15,7 +15,9 @@ Outras bibliotecas utilizadas: Js-Cookie, Qs, React Toastify, React Text Mask, R
 
 ## Demonstração
 
-
+<p align="center">
+   <img src="src/assets//to-readme/BirdAds.gif">
+</p>
 
 
 ## Acessando o projeto
@@ -61,5 +63,17 @@ Essas experiências me proporcionaram valiosos aprendizados, como a capacidade d
 
 ## Screenshots
 
+<p align="center">
+   <img src="src/assets/to-readme/Home.png">
+</p>
+ 
 
+<p align="center">
+   <img src="src/assets/to-readme/myaccount.png">
+</p>
+
+
+<p align="center">
+   <img src="src/assets/to-readme/searchAds.png">
+</p>
  
