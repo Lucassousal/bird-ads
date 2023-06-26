@@ -55,7 +55,8 @@ export const Signup = () => {
 
     const json = await api.register(data.name, data.email, data.password, data.stateLoc);
 
-    if(json.error.email || json.error.state){
+    if(json.error?.email || json.error?.state){
+      console.log('entrou no error')
       json.error.email ? toast.error(json.error.email.msg) : toast.error(json.error.state.msg)
     } else {
       doLogin(json.token);
