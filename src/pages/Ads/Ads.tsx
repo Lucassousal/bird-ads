@@ -49,11 +49,11 @@ export const Ads = () => {
    const getAdsList = async () => {
       setLoading(true)
 
-      const offset = (currentPage -1 ) * 4
+      const offset = (currentPage -1 ) * 8
 
       const ads = await api.getAds({
          sort:'desc',
-         limit:4,
+         limit:8,
          q,
          cat,
          state,
